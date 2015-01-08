@@ -1,0 +1,41 @@
+###################################
+####           RDMTool         ####
+###################################
+
+
+Architecture DB
+
+-> User
+    - username
+    - password
+    - mail
+    - date_added
+    - (projets)
+
+-> Projects
+    - name
+    - date_added
+    - user (fk)
+    - client (maître d'ouvrage)
+    - archi (maître d'œuvre)
+    - description
+    - (elements)
+
+-> Element
+    - name
+    - description
+    - date_added
+    - project (fk)
+    - charges
+    - (subelements)
+
+-> Subelement
+    - name
+    - description
+    - date_added
+    - element (fk)
+    - type
+    - matière
+    - efforts
+    - assemblage
+

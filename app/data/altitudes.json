@@ -1,0 +1,4 @@
+[
+    {"key":true, "value": "A > 1000 m"},
+    {"key":false, "value": "A <= 1000 m"}
+]

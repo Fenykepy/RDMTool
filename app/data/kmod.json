@@ -1,0 +1,25 @@
+{
+    "BM-BMR-BLC-LVL" : [
+        {
+            "Permanente": 0.6,
+            "Long terme": 0.7,
+            "Moyen terme": 0.8,
+            "Court terme": 0.9,
+            "Instantanée": 1.1
+        },
+        {
+            "Permanente": 0.6,
+            "Long terme": 0.7,
+            "Moyen terme": 0.8,
+            "Court terme": 0.9,
+            "Instantanée": 1.1
+        },
+        {
+            "Permanente": 0.5,
+            "Long terme": 0.55,
+            "Moyen terme": 0.65,
+            "Court terme": 0.7,
+            "Instantanée": 0.9
+        }
+    ]
+}
