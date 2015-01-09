@@ -4,12 +4,14 @@
 
 var rdmApp = angular.module('rdmApp', [
         'ngRoute',
-        'rdmControllers'
+        'rdmControllers',
+        'rdmServices'
 ]);
 
 
 // instanciate modules
 var rdmControllers = angular.module('rdmControllers', []);
+var rdmServices = angular.module('rdmServices', []);
 
 
 // routes configuration
@@ -25,6 +27,10 @@ rdmApp.config(['$routeProvider', '$locationProvider',
             when('/axial-traction/', {
                 templateUrl: 'partials/axial-traction.html',
                 controller: 'axialTractionCtrl'
+            }).
+            when('/axial-compression/', {
+                templateUrl: 'partials/axial-compression.html',
+                controller: 'axialCompressionCtrl'
             }).
             otherwise({
                 redirectTo: '/'

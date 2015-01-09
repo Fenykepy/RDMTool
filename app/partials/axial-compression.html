@@ -1,26 +1,26 @@
 <div class="field_wrapper">
 <label for="height">Hauteur, en mm :</label>
-<input name="height" ng-model="element.height" />
+<input name="height" ng-model="height" />
 </div>
 
 <div class="field_wrapper">
-<label for="width">Largeur, en mm :</label>
-<input name="width" ng-model="element.width" />
+<label for="base">Base, en mm :</label>
+<input name="base" ng-model="base" />
 </div>
 
 <div class="field_wrapper">
-<label for="global_section">Section globale, en mm<sup>2</sup> :</label>
-<input name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+<label for="section_global">Section globale, en mm<sup>2</sup> :</label>
+<input name="section_global"  type="text" value="{{ section_global }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="reduction">Surface d'entailles, en mm<sup>2</sup> :</label>
-<input name="reduction" ng-model="element.reduction" />
+<input name="reduction" ng-model="reduction" />
 </div>
 
 <div class="field_wrapper">
-<label for="net_section">Section nette, en mm<sup>2</sup> (A) :</label>
-<input name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+<label for="section_net">Section nette, en mm<sup>2</sup> (A) :</label>
+<input name="section_net"  type="text" value="{{ section_net }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
@@ -35,12 +35,17 @@
 
 <div class="field_wrapper">
 <label for="material_class">Classe du matérieau</label>
-<select name="material_class" ng-model="material_class" ng-options="key for (key, value) in material_classes"></select>
+<select name="material_class" ng-model="material_class" ng-options="item as item for item in material_classes"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="service_class">Classe de service</label>
 <select name="service_class" ng-model="service_class" ng-options="item as item for item in service_classes"></select>
+</div>
+
+<div class="field_wrapper">
+<label for="altitude">Altitude</label>
+<select name="altitude" ng-model="altitude" ng-options="item.key as item.value for item in altitudes"></select>
 </div>
 
 <div class="field_wrapper">
