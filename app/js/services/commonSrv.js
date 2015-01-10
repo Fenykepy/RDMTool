@@ -27,8 +27,16 @@ rdmServices.factory('commonValues', ['$http', function ($http) {
 
 
 
-rdmServices.factory('element', function () {    
-    
+rdmServices.factory('element',['$http', function ($http) {    
+    var kmod_values, gammaM_values;
+
+    $http.get('data/kmod.json').success(function(data) {
+        kmod_values = data;
+    });
+
+    $http.get('data/gammaM.json').success(function(data) {
+        gammaM_values = data;
+    });
 
     var set_global_section = function () {
         elem.global_section = elem.width * elem.height;
@@ -40,13 +48,34 @@ rdmServices.factory('element', function () {
     }
 
     var set_NA = function () {
-        elem.NA = (effort * 10) / elem.net_section;
+        elem.NA = (elem.effort * 10) / elem.net_section;
     }
 
     var set_kmod = function () {
+        if ((elem.material == "BMF" || elem.material == "BMR" ||
+                elem.material == "BLC" || elem.material == "LVL")
+                && kmod_values && elem.service_class && elem.duration) {
+            var index = "BM-BMR-BLC-LVL";
+        } else {
+            return;
+        }
+        elem.kmod = kmod_values[index][elem.service_class - 1][elem.duration];
     }
 
     var set_gammaM = function () {
+        if (! elem.material || ! elem.combinaison || ! gammaM_values) {
+            return;
+        }
+        if (elem.combinaison == "Accidentelle") {
+            elem.gammaM = gammaM_values['Accidentelle'];
+        } else {
+            if (elem.material == "BMF" || elem.material == "BMR") {
+                var material = "BM";
+            } else {
+                var material = elem.material;
+            }
+            elem.gammaM = gammaM_values[material];
+        }
     }
 
     var set_fk = function () {
@@ -70,4 +99,4 @@ rdmServices.factory('element', function () {
     }
 
     return elem;
-});
+}]);

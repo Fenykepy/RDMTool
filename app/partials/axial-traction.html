@@ -25,67 +25,67 @@
 
 <div class="field_wrapper">
 <label for="material">Matériau</label>
-<select name="material" ng-model="material" ng-options="item.key as item.value for item in materials"></select>
+<select name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
 </div>
 
-<div class="field_wrapper" ng-if="material == 'lvl'">
-    <label for="exposant_lvl">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
-    <input name="exposant_lvl" ng-model="exposant_lvl" />
+<div class="field_wrapper" ng-if="element.material == 'LVL'">
+    <label for="lvl_power">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
+    <input name="lvl_power" ng-model="element.lvl_power" />
 </div>
 
 <div class="field_wrapper">
 <label for="material_class">Classe du matérieau</label>
-<select name="material_class" ng-model="material_class" ng-options="key for (key, value) in material_classes"></select>
+<select name="material_class" ng-model="element.material_class" ng-options="key for (key, value) in material_classes"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="service_class">Classe de service</label>
-<select name="service_class" ng-model="service_class" ng-options="item as item for item in service_classes"></select>
+<select name="service_class" ng-model="element.service_class" ng-options="item as item for item in service_classes"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="combinaison">Combinaison</label>
-<select name="combinaison" ng-model="combinaison" ng-options="item as item for item in combinaisons"></select>
+<select name="combinaison" ng-model="element.combinaison" ng-options="item as item for item in combinaisons"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="effort">Effort pondéré, en daN (N) :</label>
-<input name="effort" ng-model="effort" />
+<input name="effort" ng-model="element.effort" />
 </div>
 
 <div class="field_wrapper">
 <label for="duration">Durée la plus courte</label>
-<select name="duration" ng-model="duration" ng-options="item as item for item in durations"></select>
+<select name="duration" ng-model="element.duration" ng-options="item as item for item in durations"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="NA">N/A, en N/mm<sup>2</sup> :</label>
-<input name="NA"  type="text" value="{{ NA | number: 2 }}" disabled="disabled" />
+<input name="NA"  type="text" value="{{ element.NA | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="kh">K<sub>h</sub> :</label>
-<input name="kh"  type="text" value="{{ kh | number: 2 }}" disabled="disabled" />
+<input name="kh"  type="text" value="{{ element.kh | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="kmod">K<sub>mod</sub> :</label>
-<input name="kmod"  type="text" value="{{ kmod | number: 2 }}" disabled="disabled" />
+<input name="kmod"  type="text" value="{{ element.kmod | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="gammaM">&gamma;<sub>M</sub> :</label>
-<input name="gammaM"  type="text" value="{{ gammaM | number: 2 }}" disabled="disabled" />
+<input name="gammaM"  type="text" value="{{ element.gammaM | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0k"  type="text" value="{{ ft0k | number: 2  }}" disabled="disabled" />
+<input name="ft0k"  type="text" value="{{ elementfk | number: 2  }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="ft0d">&fnof;<sub>t,0,d</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0d"  type="text" value="{{ ft0d | number: 2 }}" disabled="disabled" />
+<input name="ft0d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
