@@ -9,18 +9,8 @@
 </div>
 
 <div class="field_wrapper">
-<label for="global_section">Section globale, en mm<sup>2</sup> :</label>
-<input name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
 <label for="reduction">Surface d'entailles, en mm<sup>2</sup> :</label>
 <input name="reduction" ng-model="element.reduction" />
-</div>
-
-<div class="field_wrapper">
-<label for="net_section">Section nette, en mm<sup>2</sup> (A) :</label>
-<input name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
@@ -59,6 +49,24 @@
 </div>
 
 <div class="field_wrapper">
+<label for="verdict">Verdict :</label>
+<input id="verdict" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
+</div>
+
+
+
+
+<div class="field_wrapper">
+<label for="global_section">Section globale, en mm<sup>2</sup> :</label>
+<input name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="net_section">Section nette, en mm<sup>2</sup> (A) :</label>
+<input name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
 <label for="NA">N/A, en N/mm<sup>2</sup> :</label>
 <input name="NA"  type="text" value="{{ element.NA | number: 2 }}" disabled="disabled" />
 </div>
@@ -92,12 +100,6 @@
     <label for="ft0dkh">&fnof;<sub>t,0,d</sub> * Kh en N/mm<sup>2</sup> :</label>
 <input name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
-
-<div class="field_wrapper">
-<label for="verdict">Verdict :</label>
-<input id="verdict" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
-</div>
-
 
 
 
