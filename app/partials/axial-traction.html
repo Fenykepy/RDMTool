@@ -35,7 +35,7 @@
 
 <div class="field_wrapper">
 <label for="material_class">Classe du matérieau</label>
-<select name="material_class" ng-model="element.material_class" ng-options="key for (key, value) in material_classes"></select>
+<select name="material_class" ng-model="element.material_class" ng-options="key as key for (key, value) in material_classes"></select>
 </div>
 
 <div class="field_wrapper">
@@ -65,7 +65,7 @@
 
 <div class="field_wrapper">
 <label for="kh">K<sub>h</sub> :</label>
-<input name="kh"  type="text" value="{{ element.kh | number: 2 }}" disabled="disabled" />
+<input name="kh"  type="text" value="{{ traction.kh | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
@@ -80,7 +80,7 @@
 
 <div class="field_wrapper">
 <label for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0k"  type="text" value="{{ elementfk | number: 2  }}" disabled="disabled" />
+<input name="ft0k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
@@ -90,12 +90,12 @@
 
 <div class="field_wrapper">
     <label for="ft0dkh">&fnof;<sub>t,0,d</sub> * Kh en N/mm<sup>2</sup> :</label>
-<input name="ft0dkh" type="text" value="{{ ft0dkh | number: 2 }}" disabled="disabled" />
+<input name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <label for="verdict">Verdict :</label>
-<input id="verdict" name="verdict" type="text" value="{{ verdict }}" disabled="disabled" ng-class="{valid: verdict_bool, invalid: verdict=='Non validé'}" />
+<input id="verdict" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
 </div>
 
 
