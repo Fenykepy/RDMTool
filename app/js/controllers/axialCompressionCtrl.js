@@ -58,8 +58,9 @@ rdmControllers.controller('axialCompressionCtrl', ['$scope', 'elementSrv',
         }
 
         function fd_change () {
-            elementSrv.set_fdfinal(axialCompressionSrv.coefs);
-            console.log(axialCompressionSrv.coefs);
+            if ( axialCompressionSrv.kcbase) {
+                elementSrv.set_fdfinal(axialCompressionSrv.coefs);
+            }
         }
 
         var kcbase_change = fd_change;

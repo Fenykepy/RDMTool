@@ -48,8 +48,12 @@ rdmServices.factory('axialCompressionSrv', ['$http', 'elementSrv',
             if (elem.lambdarelbase <= 0.3) {
                 elem.kcbase = 1;
                 elem.coefs = [1];
+                elem.flamb_bool = true;
+                elem.flamb = "Pas de flambement";
             } else {
                 set_kcbase();
+                elem.flamb_bool = false;
+                elem.flamb = "Risque de flambement";
             }
         }
 
@@ -59,6 +63,13 @@ rdmServices.factory('axialCompressionSrv', ['$http', 'elementSrv',
                 return;
             }
             elem.lambdabase = elem.lef / elem.ibase;
+            if (elem.lambdabase > 120) {
+                elem.meca = "Élancement mécanique trop important";
+                elem.meca_bool = false;
+            } else {
+                elem.meca = "Élancement mécanique correct";
+                elem.meca_bool = true;
+            }
             set_lambdarelbase();
         }
 

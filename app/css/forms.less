@@ -38,10 +38,13 @@ input, option, select, textarea, ul.errorlist li {
     margin-top: 5px;
     box-sizing: border-box;
 }
-input[disabled="disabled"] {
+[disabled="disabled"] {
     background: @disabled-inputs-bg;
     color: @disabled-inputs-color;
     text-align: right;
+    &:hover, &:focus {
+        box-shadow: none;
+    }
 }
 textarea {
     resize: vertical;
@@ -92,3 +95,25 @@ input[type="submit"]:hover, input[type="submit"]:focus, button:hover, button:foc
 
 
 
+input.valid {
+    background-color: @valid-bg;
+    color: @valid;
+    border-color: @valid-border;
+}
+
+input.invalid {
+    background-color: @invalid-bg;
+    color: @invalid;
+    border-color: @invalid-border;
+}
+
+input.warning {
+    background-color: @warning-bg;
+    color: @warning;
+    border-color: @warning-border;
+}
+
+input.title{
+    text-align: center;
+    font-weight: bold;
+}

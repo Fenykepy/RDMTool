@@ -60,9 +60,19 @@
 
 <div class="field_wrapper">
 <label for="verdict">Verdict :</label>
-<input id="verdict" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
+<input class="title" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
 </div>
 
+<div class="field_wrapper">
+<label for="flamb">Flambement :</label>
+<input class="title" name="flamb" type="text" value="{{ compression.flamb }}" disabled="disabled" ng-class="{valid: compression.flamb_bool, warning: compression.flamb_bool == false}" />
+</div>
+
+
+<div class="field_wrapper">
+<label for="meca">Élancement mécanique :</label>
+<input class="title" name="meca" type="text" value="{{ compression.meca }}" disabled="disabled" ng-class="{valid: compression.meca_bool, warning: compression.meca_bool == false}" />
+</div>
 
 
 
