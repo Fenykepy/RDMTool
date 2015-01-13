@@ -33,12 +33,12 @@ rdmServices.factory('axialTractionSrv', ['$http', 'elementSrv',
                 }
             }
             elem.coefs = [elem.kh];
-        }
+        };
 
         var elem = {
             fk_key: "ft0k",
             set_kh: set_kh,
-        }
+        };
 
 
         return elem;

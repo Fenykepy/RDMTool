@@ -1,108 +1,166 @@
 <div class="field_wrapper">
 <label for="height">Hauteur, en mm :</label>
-<input name="height" ng-model="height" />
+<input name="height" ng-model="element.height" />
 </div>
 
 <div class="field_wrapper">
-<label for="base">Base, en mm :</label>
-<input name="base" ng-model="base" />
+<label for="width">Largeur, en mm :</label>
+<input name="width" ng-model="element.width" />
 </div>
 
 <div class="field_wrapper">
-<label for="section_global">Section globale, en mm<sup>2</sup> :</label>
-<input name="section_global"  type="text" value="{{ section_global }}" disabled="disabled" />
+<label for="length">Longueur, en mm :</label>
+<input name="length" ng-model="element.length" />
 </div>
 
 <div class="field_wrapper">
 <label for="reduction">Surface d'entailles, en mm<sup>2</sup> :</label>
-<input name="reduction" ng-model="reduction" />
+<input name="reduction" ng-model="element.reduction" />
 </div>
 
 <div class="field_wrapper">
-<label for="section_net">Section nette, en mm<sup>2</sup> (A) :</label>
-<input name="section_net"  type="text" value="{{ section_net }}" disabled="disabled" />
+<label for="base">Base</label>
+<select name="base" ng-model="compression.base" ng-options="key as value for (key, value) in compression.bases"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="material">Matériau</label>
-<select name="material" ng-model="material" ng-options="item.key as item.value for item in materials"></select>
-</div>
-
-<div class="field_wrapper" ng-if="material == 'lvl'">
-    <label for="exposant_lvl">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
-    <input name="exposant_lvl" ng-model="exposant_lvl" />
+<select name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="material_class">Classe du matérieau</label>
-<select name="material_class" ng-model="material_class" ng-options="item as item for item in material_classes"></select>
+<select name="material_class" ng-model="element.material_class" ng-options="key as key for (key, value) in material_classes"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="service_class">Classe de service</label>
-<select name="service_class" ng-model="service_class" ng-options="item as item for item in service_classes"></select>
-</div>
-
-<div class="field_wrapper">
-<label for="altitude">Altitude</label>
-<select name="altitude" ng-model="altitude" ng-options="item.key as item.value for item in altitudes"></select>
+<select name="service_class" ng-model="element.service_class" ng-options="item as item for item in service_classes"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="combinaison">Combinaison</label>
-<select name="combinaison" ng-model="combinaison" ng-options="item as item for item in combinaisons"></select>
+<select name="combinaison" ng-model="element.combinaison" ng-options="item as item for item in combinaisons"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="effort">Effort pondéré, en daN (N) :</label>
-<input name="effort" ng-model="effort" />
+<input name="effort" ng-model="element.effort" />
 </div>
 
 <div class="field_wrapper">
 <label for="duration">Durée la plus courte</label>
-<select name="duration" ng-model="duration" ng-options="item as item for item in durations"></select>
+<select name="duration" ng-model="element.duration" ng-options="item as item for item in durations"></select>
 </div>
 
 <div class="field_wrapper">
-<label for="NA">N/A, en N/mm<sup>2</sup> :</label>
-<input name="NA"  type="text" value="{{ NA | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="kh">K<sub>h</sub> :</label>
-<input name="kh"  type="text" value="{{ kh | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="kmod">K<sub>mod</sub> :</label>
-<input name="kmod"  type="text" value="{{ kmod | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="gammaM">&gamma;<sub>M</sub> :</label>
-<input name="gammaM"  type="text" value="{{ gammaM | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0k"  type="text" value="{{ ft0k | number: 2  }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="ft0d">&fnof;<sub>t,0,d</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0d"  type="text" value="{{ ft0d | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-    <label for="ft0dkh">&fnof;<sub>t,0,d</sub> * Kh en N/mm<sup>2</sup> :</label>
-<input name="ft0dkh" type="text" value="{{ ft0dkh | number: 2 }}" disabled="disabled" />
+<label for="duration">Typologie de liaison</label>
+<select name="duration" ng-model="compression.m" ng-options="value as key for (key, value) in liaisons"></select>
 </div>
 
 <div class="field_wrapper">
 <label for="verdict">Verdict :</label>
-<input id="verdict" name="verdict" type="text" value="{{ verdict }}" disabled="disabled" ng-class="{valid: verdict_bool, invalid: verdict=='Non validé'}" />
+<input id="verdict" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
 </div>
 
+
+
+
+<div class="field_wrapper">
+<label for="global_section">Section globale, en mm<sup>2</sup> :</label>
+<input name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="net_section">Section nette, en mm<sup>2</sup> (A) :</label>
+<input name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="sigmad">Sigma<sub>c,0,d</sub> en N/mm<sup>2</sup> :</label>
+<input name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="kmod">K<sub>mod</sub> :</label>
+<input name="kmod"  type="text" value="{{ element.kmod | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="gammaM">&gamma;<sub>M</sub> :</label>
+<input name="gammaM"  type="text" value="{{ element.gammaM | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="m">m :</label>
+<input name="m"  type="text" value="{{ compression.m | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="Lef">L<sub>ef</sub> :</label>
+<input name="Lef"  type="text" value="{{ compression.lef | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="base">Base :</label>
+<input name="base"  type="text" value="{{ compression.base_value | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="ibase">I<sub>{{ compression.base }}</sub> :</label>
+<input name="ibase"  type="text" value="{{ compression.ibase | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="lambdabase">Lambda<sub>{{ compression.base }}</sub> :</label>
+<input name="lambdabase"  type="text" value="{{ compression.lambdabase | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="e005">E<sub>0,05</sub> :</label>
+<input name="e005"  type="text" value="{{ compression.e005 | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="lambdarelbase">Lambda<sub>rel,{{ compression.base }}</sub> :</label>
+<input name="lambdarelbase"  type="text" value="{{ compression.lambdarelbase | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="betac">Beta<sub>c</sub> :</label>
+<input name="betac"  type="text" value="{{ compression.betac | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="kbase">k<sub>{{ compression.base }}</sub> :</label>
+<input name="kbase"  type="text" value="{{ compression.kbase | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="kcbase">k<sub>c,{{ compression.base }}</sub> :</label>
+<input name="kcbase"  type="text" value="{{ compression.kcbase | number: 2 }}" disabled="disabled" />
+</div>
+
+
+
+
+
+
+
+<div class="field_wrapper">
+<label for="fc0k">&fnof;<sub>c,0,k</sub> en N/mm<sup>2</sup> :</label>
+<input name="fc0k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+<label for="fc0d">&fnof;<sub>c,0,d</sub> en N/mm<sup>2</sup> :</label>
+<input name="fc0d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="field_wrapper">
+    <label for="fc0dkcbase">&fnof;<sub>c,0,d</sub> * K<sub>c,{{ compression.base }}</sub> en N/mm<sup>2</sup> :</label>
+<input name="fc0dkcbase" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
+</div>
 
 
 

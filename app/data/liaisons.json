@@ -1,0 +1,7 @@
+{
+    "1 extrémité libre, 1 extrémité encastrée": 2,
+    "2 extrémités articulées": 1,
+    "1 extrémité articulée, 1 extrémité encastrée": 0.8,
+    "2 extrémités encastrées": 0.6
+}
+

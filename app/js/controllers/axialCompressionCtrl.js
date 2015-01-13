@@ -4,8 +4,8 @@
 
 var rdmControllers = angular.module('rdmControllers');
 
-rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
-        'axialTractionSrv', function($scope, elementSrv, axialTractionSrv) {
+rdmControllers.controller('axialCompressionCtrl', ['$scope', 'elementSrv',
+        'axialCompressionSrv', function($scope, elementSrv, axialCompressionSrv) {
 
         elementSrv.get_materials_values(function (data) {
                 $scope.materials = data;
@@ -26,6 +26,9 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
         elementSrv.get_combinaisons_values(function (data) {
                 $scope.combinaisons = data;
         });
+        axialCompressionSrv.get_liaisons_values(function (data) {
+                $scope.liaisons = data;
+        });
 
 
 
@@ -38,34 +41,37 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
 
         function height_change () {
             elementSrv.set_global_section();
-            axialTractionSrv.set_kh();
+            axialCompressionSrv.set_base();
         }
+
+        var width_change = height_change;
 
         function material_change () {
             set_material_classes();
             elementSrv.set_kmod();
             elementSrv.set_gammaM();
-            axialTractionSrv.set_kh();
-            elementSrv.set_fk(axialTractionSrv.fk_key);
+            elementSrv.set_fk(axialCompressionSrv.fk_key);
         }
 
         function material_class_change () {
-            elementSrv.set_fk(axialTractionSrv.fk_key);
+            elementSrv.set_fk(axialCompressionSrv.fk_key);
         }
 
         function fd_change () {
-            elementSrv.set_fdfinal(axialTractionSrv.coefs);
+            elementSrv.set_fdfinal(axialCompressionSrv.coefs);
+            console.log(axialCompressionSrv.coefs);
         }
 
-        var kh_change = fd_change;
+        var kcbase_change = fd_change;
+
         
         elementSrv.reset();
         $scope.element = elementSrv;
-        $scope.traction = axialTractionSrv;
+        $scope.compression = axialCompressionSrv;
 
 
         $scope.$watch('element.material', material_change);
-        $scope.$watch('element.width', elementSrv.set_global_section);
+        $scope.$watch('element.width', width_change);
         $scope.$watch('element.height', height_change);
         $scope.$watch('element.global_section', elementSrv.set_net_section);
         $scope.$watch('element.reduction', elementSrv.set_net_section);
@@ -79,8 +85,14 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
         $scope.$watch('element.kmod', elementSrv.set_fd);
         $scope.$watch('element.gammaM', elementSrv.set_fd);
         $scope.$watch('element.fd', fd_change);
-        $scope.$watch('traction.kh', kh_change);
         $scope.$watch('element.fdfinal', elementSrv.set_verdict);
         $scope.$watch('element.sigmad', elementSrv.set_verdict);
+        $scope.$watch('element.length', axialCompressionSrv.set_lef);
+        $scope.$watch('compression.m', axialCompressionSrv.set_lef);
+        $scope.$watch('compression.base', axialCompressionSrv.set_base);
+        $scope.$watch('compression.lef', axialCompressionSrv.set_lambdabase);
+        $scope.$watch('compression.ibase', axialCompressionSrv.set_lambdabase);
+        $scope.$watch('compression.kcbase', kcbase_change);
+
 
 }]);

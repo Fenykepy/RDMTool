@@ -36,8 +36,8 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
 
     }
 
-    var set_NA = function () {
-        elem.NA = (elem.effort * 10) / elem.net_section;
+    var set_sigmad = function () {
+        elem.sigmad = (elem.effort * 10) / elem.net_section;
     }
 
     var set_kmod = function () {
@@ -94,12 +94,12 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
 
 
     var set_verdict = function () {
-        if (! elem.NA || ! elem.fdfinal) {
+        if (! elem.sigmad || ! elem.fdfinal) {
             elem.verdict_bool = null;
             elem.verdict = "";
             return;
         }
-        if (elem.fdfinal >= elem.NA) {
+        if (elem.fdfinal >= elem.sigmad) {
             elem.verdict_bool = true;
             elem.verdict = "Validé";
         } else {
@@ -109,14 +109,24 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
     }
 
 
+    var reset = function () {
+        elem.fk = null;
+        elem.fd = null;
+        elem.fdfinal = null;
+        elem.verdict_bool = null;
+        elem.verdict = "";
+    }
+
+
 
     var elem = {
+        reset: reset,
         reduction: 0,
         global_section: 0,
         net_section: 0,
         set_global_section: set_global_section,
         set_net_section: set_net_section,
-        set_NA: set_NA,
+        set_sigmad: set_sigmad,
         set_kmod: set_kmod,
         set_gammaM: set_gammaM,
         set_fk: set_fk,
