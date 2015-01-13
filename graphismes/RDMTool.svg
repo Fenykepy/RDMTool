@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="RDMTool.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="256.44871"
+     inkscape:cy="732.56846"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1438"
+     inkscape:window-height="884"
+     inkscape:window-x="0"
+     inkscape:window-y="14"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       id="path2985"
+       sodipodi:cx="-98.571426"
+       sodipodi:cy="605.2193"
+       sodipodi:rx="441.42856"
+       sodipodi:ry="441.42856"
+       d="m 342.85713,605.2193 a 441.42856,441.42856 0 1 1 -882.85711,0 441.42856,441.42856 0 1 1 882.85711,0 z"
+       transform="matrix(0.05663431,0,0,0.05663431,271.11105,287.35599)"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3790"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="324.6142"
+         x="246.52852"
+         height="2"
+         width="38"
+         id="rect2987"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <path
+         transform="translate(16.482804,-2.5680417)"
+         inkscape:transform-center-y="-0.75034537"
+         d="m 268.04571,333.68431 -2.59927,0 -2.59927,0 1.29964,-2.25103 1.29963,-2.25104 1.29964,2.25104 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="false"
+         sodipodi:arg2="1.5707963"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="1.5006907"
+         sodipodi:r1="3.0013814"
+         sodipodi:cy="332.18362"
+         sodipodi:cx="265.44644"
+         sodipodi:sides="3"
+         id="path3757"
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         sodipodi:type="star" />
+      <path
+         sodipodi:type="star"
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         id="path3761"
+         sodipodi:sides="3"
+         sodipodi:cx="265.44644"
+         sodipodi:cy="332.18362"
+         sodipodi:r1="3.0013814"
+         sodipodi:r2="1.5006907"
+         sodipodi:arg1="0.52359878"
+         sodipodi:arg2="1.5707963"
+         inkscape:flatsided="false"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="m 268.04571,333.68431 -2.59927,0 -2.59927,0 1.29964,-2.25103 1.29963,-2.25104 1.29964,2.25104 z"
+         inkscape:transform-center-y="-0.75034537"
+         transform="translate(-16.31865,-2.5681324)" />
+    </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       id="rect3782"
+       width="1"
+       height="18.75"
+       x="265.02853"
+       y="302.36414"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="star"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       id="path3788"
+       sodipodi:sides="3"
+       sodipodi:cx="257.94644"
+       sodipodi:cy="318.43362"
+       sodipodi:r1="2.9518349"
+       sodipodi:r2="1.4759175"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="2.6179939"
+       inkscape:flatsided="false"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 257.94644,321.38546 -1.27818,-2.21388 -1.27818,-2.21387 2.55636,0 2.55637,0 -1.27819,2.21387 z"
+       inkscape:transform-center-y="0.7379587"
+       transform="matrix(0.79043896,0,0,1,61.637608,3.2287376)"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="309.11414"
+       x="253.02866"
+       height="12"
+       width="1"
+       id="rect3807"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       transform="matrix(0.79043896,0,0,1,49.637733,3.2287234)"
+       inkscape:transform-center-y="0.7379587"
+       d="m 257.94644,321.38546 -1.27818,-2.21388 -1.27818,-2.21387 2.55636,0 2.55637,0 -1.27819,2.21387 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="2.6179939"
+       sodipodi:arg1="1.5707963"
+       sodipodi:r2="1.4759175"
+       sodipodi:r1="2.9518349"
+       sodipodi:cy="318.43362"
+       sodipodi:cx="257.94644"
+       sodipodi:sides="3"
+       id="path3809"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       sodipodi:type="star"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="309.11414"
+       x="277.02866"
+       height="12"
+       width="1"
+       id="rect3811"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       transform="matrix(0.79043896,0,0,1,73.637733,3.2287376)"
+       inkscape:transform-center-y="0.7379587"
+       d="m 257.94644,321.38546 -1.27818,-2.21388 -1.27818,-2.21387 2.55636,0 2.55637,0 -1.27819,2.21387 z"
+       inkscape:randomized="0"
+       inkscape:rounded="0"
+       inkscape:flatsided="false"
+       sodipodi:arg2="2.6179939"
+       sodipodi:arg1="1.5707963"
+       sodipodi:r2="1.4759175"
+       sodipodi:r1="2.9518349"
+       sodipodi:cy="318.43362"
+       sodipodi:cx="257.94644"
+       sodipodi:sides="3"
+       id="path3813"
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       sodipodi:type="star"
+       inkscape:export-filename="/home/fred/sites/RDMTool/app/img/rdm-icon.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>
