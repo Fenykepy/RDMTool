@@ -40,6 +40,17 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
         elem.sigmad = (elem.effort * 10) / elem.net_section;
     }
 
+    var set_kc90 = function () {
+        if (elem.material == "BMF" || elem.material == "BMR") {
+            elem.kc90 = 1.5;
+        }else if (elem.material == "BLC") {
+            elem.kc90 = 1.75;
+        } else {
+            elem.kc90 = 1;
+        }
+        console.log(elem.kc90);
+    }
+
     var set_kmod = function () {
         if ((elem.material == "BMF" || elem.material == "BMR" ||
                 elem.material == "BLC" || elem.material == "LVL")
@@ -49,6 +60,7 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
             return;
         }
         elem.kmod = kmod_values[index][elem.service_class - 1][elem.duration];
+        set_kc90();
     }
 
     var set_gammaM = function () {

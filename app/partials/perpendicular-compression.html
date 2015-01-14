@@ -5,23 +5,23 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="width">Largeur <span class="unit">(mm)</span> :</label>
+<label class="col-4" for="width">Base <span class="unit">(mm)</span> :</label>
 <input class="col-8" name="width" ng-model="element.width" />
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="reduction">Surface d'entailles <span class="unit">(mm<sup>2</sup>)</span> :</label>
-<input class="col-8" name="reduction" ng-model="element.reduction" />
+<label class="col-4" for="base_length">Profondeur d'appui <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="base_length" ng-model="pcomp.base_length" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="base_overtaking">Dépassement de l'appui <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="base_overtaking" ng-model="pcomp.base_overtaking" />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="material">Matériau :</label>
 <select class="col-8" name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
-</div>
-
-<div class="form-horizontal" ng-if="element.material == 'LVL'">
-<label class="col-4" for="lvl_power">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
-<input class="col-8" name="lvl_power" ng-model="element.lvl_power" />
 </div>
 
 <div class="form-horizontal">
@@ -40,7 +40,7 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="effort">Effort pondéré  <span class="unit">(daN)</span> :</label>
+<label class="col-4" for="effort">Effort pondéré <span class="unit">(daN)</span> :</label>
 <input class="col-8" name="effort" ng-model="element.effort" />
 </div>
 
@@ -62,23 +62,23 @@
 <label class="col-4" for="global_section">Section globale <span class="unit">(mm<sup>2</sup>)</span> :</label>
 <input class="col-2" name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
 
-<label class="col-4" for="net_section">Section nette <span class="unit">(mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+<label class="col-4" for="aef">A<sub>ef</sub> <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="aef"  type="text" value="{{ pcomp.aef }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="sigmad">&sigma;<sub>t,0,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<label class="col-4" for="sigmad">&sigma;<sub>c,90,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
 <input class="col-2" name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
-<label class="col-4" for="ft0dkh">&fnof;<sub>t,0,d</sub> * K<sub>h</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="fc90dkc90">&fnof;<sub>c,90,d</sub> * K<sub>c,90</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fc90dkc90" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
-<input class="col-2" name="ft0k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
+<label class="col-4" for="fc90k">&fnof;<sub>c,90,k</sub> en N/mm<sup>2</sup> :</label>
+<input class="col-2" name="fc90k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
 
-<label class="col-4" for="ft0d">&fnof;<sub>t,0,d</sub> en N/mm<sup>2</sup> :</label>
-<input class="col-2" name="ft0d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="fc90d">&fnof;<sub>c,90,d</sub> en N/mm<sup>2</sup> :</label>
+<input class="col-2" name="fc90d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
@@ -90,8 +90,10 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-10" for="kh">K<sub>h</sub> :</label>
-<input class="col-2" name="kh"  type="text" value="{{ traction.kh | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="lef">l<sub>ef</sub> :</label>
+<input class="col-2" name="lef"  type="text" value="{{ pcomp.lef | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="kc90">K<sub>c,90</sub> :</label>
+<input class="col-2" name="kc90"  type="text" value="{{ element.kc90 | number: 2 }}" disabled="disabled" />
 </div>
 
 </div>
