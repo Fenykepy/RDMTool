@@ -1,55 +1,56 @@
 <div class="field_wrapper">
-<label for="height">Hauteur, en mm :</label>
-<input name="height" ng-model="element.height" />
+<div class="form-horizontal">
+<label class="col-4" for="height">Hauteur <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="height" ng-model="element.height" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="width">Largeur <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="width" ng-model="element.width" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="reduction">Surface d'entailles <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-8" name="reduction" ng-model="element.reduction" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="material">Matériau :</label>
+<select class="col-8" name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
+</div>
+
+<div class="form-horizontal" ng-if="element.material == 'LVL'">
+<label class="col-4" for="lvl_power">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
+<input class="col-8" name="lvl_power" ng-model="element.lvl_power" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="material_class">Classe du matérieau :</label>
+<select class="col-8" name="material_class" ng-model="element.material_class" ng-options="key as key for (key, value) in material_classes"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="service_class">Classe de service :</label>
+<select class="col-8" name="service_class" ng-model="element.service_class" ng-options="item as item for item in service_classes"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="combinaison">Combinaison :</label>
+<select class="col-8" name="combinaison" ng-model="element.combinaison" ng-options="item as item for item in combinaisons"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="effort">Effort pondéré  <span class="unit">(daN)</span> :</label>
+<input class="col-8" name="effort" ng-model="element.effort" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="duration">Durée la plus courte :</label>
+<select class="col-8" name="duration" ng-model="element.duration" ng-options="item as item for item in durations"></select>
+</div>
 </div>
 
 <div class="field_wrapper">
-<label for="width">Largeur, en mm :</label>
-<input name="width" ng-model="element.width" />
-</div>
-
-<div class="field_wrapper">
-<label for="reduction">Surface d'entailles, en mm<sup>2</sup> :</label>
-<input name="reduction" ng-model="element.reduction" />
-</div>
-
-<div class="field_wrapper">
-<label for="material">Matériau</label>
-<select name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
-</div>
-
-<div class="field_wrapper" ng-if="element.material == 'LVL'">
-    <label for="lvl_power">Exposant d'effet d'échelle (fourni par le fabricant) :</label>
-    <input name="lvl_power" ng-model="element.lvl_power" />
-</div>
-
-<div class="field_wrapper">
-<label for="material_class">Classe du matérieau</label>
-<select name="material_class" ng-model="element.material_class" ng-options="key as key for (key, value) in material_classes"></select>
-</div>
-
-<div class="field_wrapper">
-<label for="service_class">Classe de service</label>
-<select name="service_class" ng-model="element.service_class" ng-options="item as item for item in service_classes"></select>
-</div>
-
-<div class="field_wrapper">
-<label for="combinaison">Combinaison</label>
-<select name="combinaison" ng-model="element.combinaison" ng-options="item as item for item in combinaisons"></select>
-</div>
-
-<div class="field_wrapper">
-<label for="effort">Effort pondéré, en daN (N) :</label>
-<input name="effort" ng-model="element.effort" />
-</div>
-
-<div class="field_wrapper">
-<label for="duration">Durée la plus courte</label>
-<select name="duration" ng-model="element.duration" ng-options="item as item for item in durations"></select>
-</div>
-
-<div class="field_wrapper">
-<label for="verdict">Verdict :</label>
 <input class="title" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
 </div>
 
@@ -57,48 +58,42 @@
 
 
 <div class="field_wrapper">
-<label for="global_section">Section globale, en mm<sup>2</sup> :</label>
-<input name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+<div class="form-horizontal">
+<label class="col-4" for="global_section">Section globale <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+
+<label class="col-4" for="net_section">Section nette <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
 </div>
 
-<div class="field_wrapper">
-<label for="net_section">Section nette, en mm<sup>2</sup> (A) :</label>
-<input name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+<div class="form-horizontal">
+<label class="col-4" for="sigmad">&sigma;<sub>t,0,d<sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="ft0dkh">&fnof;<sub>t,0,d</sub> * K<sub>h</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
 
-<div class="field_wrapper">
-    <label for="sigmad">Sigma<sub>t,0,d<sub> en N/mm<sup>2</sup> :</label>
-<input name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
+<div class="form-horizontal">
+<label class="col-4" for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
+<input class="col-2" name="ft0k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
+
+<label class="col-4" for="ft0d">&fnof;<sub>t,0,d</sub> en N/mm<sup>2</sup> :</label>
+<input class="col-2" name="ft0d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
 </div>
 
-<div class="field_wrapper">
-<label for="kh">K<sub>h</sub> :</label>
-<input name="kh"  type="text" value="{{ traction.kh | number: 2 }}" disabled="disabled" />
+<div class="form-horizontal">
+<label class="col-4" for="kmod">K<sub>mod</sub> :</label>
+<input class="col-2" name="kmod"  type="text" value="{{ element.kmod | number: 2 }}" disabled="disabled" />
+
+<label class="col-4" for="gammaM">&gamma;<sub>M</sub> :</label>
+<input class="col-2" name="gammaM"  type="text" value="{{ element.gammaM | number: 2 }}" disabled="disabled" />
 </div>
 
-<div class="field_wrapper">
-<label for="kmod">K<sub>mod</sub> :</label>
-<input name="kmod"  type="text" value="{{ element.kmod | number: 2 }}" disabled="disabled" />
+<div class="form-horizontal">
+<label class="col-10" for="kh">K<sub>h</sub> :</label>
+<input class="col-2" name="kh"  type="text" value="{{ traction.kh | number: 2 }}" disabled="disabled" />
 </div>
 
-<div class="field_wrapper">
-<label for="gammaM">&gamma;<sub>M</sub> :</label>
-<input name="gammaM"  type="text" value="{{ element.gammaM | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="ft0k">&fnof;<sub>t,0,k</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-<label for="ft0d">&fnof;<sub>t,0,d</sub> en N/mm<sup>2</sup> :</label>
-<input name="ft0d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
-</div>
-
-<div class="field_wrapper">
-    <label for="ft0dkh">&fnof;<sub>t,0,d</sub> * Kh en N/mm<sup>2</sup> :</label>
-<input name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
 
 
