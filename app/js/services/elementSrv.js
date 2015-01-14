@@ -48,7 +48,6 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
         } else {
             elem.kc90 = 1;
         }
-        console.log(elem.kc90);
     }
 
     var set_kmod = function () {

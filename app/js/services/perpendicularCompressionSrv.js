@@ -10,7 +10,6 @@ rdmServices.factory('perpendicularCompressionSrv', ['$http', 'elementSrv',
         var set_lef = function () {
             elem.lef = parseInt(elem.base_length);
             if (elem.base_overtaking && elem.base_overtaking >= (elementSrv.height / 3)) {
-                console.log(elem.lef);
                 elem.lef = elem.lef + 30;
             }
 
