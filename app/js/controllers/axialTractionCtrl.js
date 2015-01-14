@@ -62,6 +62,8 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
         elementSrv.reset();
         $scope.element = elementSrv;
         $scope.traction = axialTractionSrv;
+        $scope.$parent.sub_title = "Traction axiale";
+
 
 
         $scope.$watch('element.material', material_change);

@@ -65,6 +65,7 @@ rdmControllers.controller('perpendicularCompressionCtrl', ['$scope', 'elementSrv
         elementSrv.reset();
         $scope.element = elementSrv;
         $scope.pcomp = perpendicularCompressionSrv;
+        $scope.$parent.sub_title = "Compression perpendiculaire";
 
 
         $scope.$watch('element.material', material_change);

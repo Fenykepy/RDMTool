@@ -28,11 +28,15 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
     var combinaisons_promise = $http.get('data/combinaisons.json');
 
     var set_global_section = function () {
-        elem.global_section = elem.width * elem.height;
+        if (elem.width && elem.height) {
+            elem.global_section = elem.width * elem.height;
+        }
     }
 
     var set_net_section = function () {
-        elem.net_section = elem.global_section - elem.reduction;
+        if (elem.global_section) {
+            elem.net_section = elem.global_section - elem.reduction;
+        }
 
     }
 
@@ -133,8 +137,6 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
     var elem = {
         reset: reset,
         reduction: 0,
-        global_section: 0,
-        net_section: 0,
         set_global_section: set_global_section,
         set_net_section: set_net_section,
         set_sigmad: set_sigmad,

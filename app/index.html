@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" ng-app="rdmApp">
+<html lang="fr" ng-app="rdmApp" ng-controller="mainCtrl">
 <head>
     <title>RDMTool, Le calcul de structure en ligne</title>
     <meta charset="utf-8" />
@@ -29,6 +29,7 @@
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="js/rdmApp.js"></script>
 <script src="js/controllers/homeCtrl.js"></script>
+<script src="js/controllers/mainCtrl.js"></script>
 <script src="js/controllers/axialTractionCtrl.js"></script>
 <script src="js/controllers/axialCompressionCtrl.js"></script>
 <script src="js/controllers/perpendicularCompressionCtrl.js"></script>
@@ -50,7 +51,7 @@
         <a href="#/"><img src="img/rdmtool-icon.png" alt="RDMTool, le calcul de structure en ligne" /></a>
     </div>
     <h1>RDMTool</h1>
-    <h2>Le calcul de structure en ligne</h2>
+    <h2>{{ sub_title }}</h2>
 </header>
 
 <section role="main" ng-view></section>
