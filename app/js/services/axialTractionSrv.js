@@ -36,6 +36,7 @@ rdmServices.factory('axialTractionSrv', ['$http', 'elementSrv',
         };
 
         var elem = {
+            title: "Traction axiale",
             fk_key: "ft0k",
             set_kh: set_kh,
         };

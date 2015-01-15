@@ -4,8 +4,8 @@
 
 var rdmServices = angular.module('rdmServices');
 
-rdmServices.factory('perpendicularCompressionSrv', ['$http', 'elementSrv',
-        function ($http, elementSrv) {
+rdmServices.factory('perpendicularCompressionSrv', ['elementSrv',
+        function (elementSrv) {
 
         var set_lef = function () {
             elem.lef = parseInt(elem.base_length);
@@ -26,6 +26,7 @@ rdmServices.factory('perpendicularCompressionSrv', ['$http', 'elementSrv',
         }
 
         var elem = {
+            title: "Compression perpendiculaire",
             fk_key: "fc90k",
             set_aef: set_aef,
             coefs: [elementSrv.kc90]

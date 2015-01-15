@@ -86,6 +86,7 @@ rdmServices.factory('axialCompressionSrv', ['$http', 'elementSrv',
 
 
         var elem = {
+            title: "Compression axiale",
             fk_key: "fc0k",
             bases: {"y": "hauteur (y)", "z": "largeur (z)"},
             set_lef: set_lef,

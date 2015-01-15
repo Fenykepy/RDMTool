@@ -36,6 +36,10 @@ rdmApp.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'partials/perpendicular-compression.html',
                 controller: 'perpendicularCompressionCtrl'
             }).
+            when('/oblique-compression/', {
+                templateUrl: 'partials/oblique-compression.html',
+                controller: 'obliqueCompressionCtrl'
+            }).
             otherwise({
                 redirectTo: '/'
             });

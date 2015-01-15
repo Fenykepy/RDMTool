@@ -1,22 +1,12 @@
 <div class="field_wrapper">
 <div class="form-horizontal">
-<label class="col-4" for="height">Hauteur <span class="unit">(mm)</span> :</label>
-<input class="col-8" name="height" ng-model="element.height" />
+<label class="col-4" for="base_length">Longueur d'appui <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="base_length" ng-model="ocomp.base_length" />
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="width">Base <span class="unit">(mm)</span> :</label>
-<input class="col-8" name="width" ng-model="element.width" />
-</div>
-
-<div class="form-horizontal">
-<label class="col-4" for="base_length">Profondeur d'appui <span class="unit">(mm)</span> :</label>
-<input class="col-8" name="base_length" ng-model="pcomp.base_length" />
-</div>
-
-<div class="form-horizontal">
-<label class="col-4" for="base_overtaking">Dépassement de l'appui <span class="unit">(mm)</span> :</label>
-<input class="col-8" name="base_overtaking" ng-model="pcomp.base_overtaking" />
+<label class="col-4" for="base_width">Épaisseur d'appui <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="base_width" ng-model="ocomp.base_width" />
 </div>
 
 <div class="form-horizontal">
@@ -40,8 +30,13 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="effort">Effort pondéré <span class="unit">(daN)</span> :</label>
+<label class="col-4" for="effort">Effort pondéré &perp; appui<span class="unit">(daN)</span> :</label>
 <input class="col-8" name="effort" ng-model="element.effort" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="effort_angle">Angle effort / fil <span class="unit">(°)</span> :</label>
+<input class="col-8" name="effort_angle" ng-model="ocomp.effort_angle" />
 </div>
 
 <div class="form-horizontal">
@@ -59,26 +54,26 @@
 
 <div class="field_wrapper">
 <div class="form-horizontal">
-<label class="col-4" for="global_section">Section globale <span class="unit">(mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
-
-<label class="col-4" for="aef">A<sub>ef</sub> <span class="unit">(mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="aef"  type="text" value="{{ pcomp.aef }}" disabled="disabled" />
+<label class="col-4" for="sigmad">&sigma;<sub>c,&alpha;,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="sigmad"  type="text" value="{{ ocomp.sigmad | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="fcad">&fnof;<sub>c,&alpha;,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fcad" type="text" value="{{ ocomp.fdfinal | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="sigmad">&sigma;<sub>c,90,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
-<label class="col-4" for="fc90dkc90">&fnof;<sub>c,90,d</sub> * K<sub>c,90</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="fc90dkc90" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
+    <label class="col-4" for="fc0k">&fnof;<sub>c,0,k</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fc0k"  type="text" value="{{ ocomp.f0k | number: 2  }}" disabled="disabled" />
+
+<label class="col-4" for="fc0d">&fnof;<sub>c,0,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fc0d"  type="text" value="{{ ocomp.f0d | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
     <label class="col-4" for="fc90k">&fnof;<sub>c,90,k</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="fc90k"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
+<input class="col-2" name="fc90k"  type="text" value="{{ ocomp.f90k | number: 2  }}" disabled="disabled" />
 
 <label class="col-4" for="fc90d">&fnof;<sub>c,90,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
-<input class="col-2" name="fc90d"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
+<input class="col-2" name="fc90d"  type="text" value="{{ ocomp.f90d | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
@@ -90,8 +85,8 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="lef">l<sub>ef</sub> :</label>
-<input class="col-2" name="lef"  type="text" value="{{ pcomp.lef | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="base_surface">Surface d'appui <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="base_surface"  type="text" value="{{ ocomp.base_surface }}" disabled="disabled" />
 <label class="col-4" for="kc90">K<sub>c,90</sub> :</label>
 <input class="col-2" name="kc90"  type="text" value="{{ element.kc90 | number: 2 }}" disabled="disabled" />
 </div>

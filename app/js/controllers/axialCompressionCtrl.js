@@ -69,7 +69,7 @@ rdmControllers.controller('axialCompressionCtrl', ['$scope', 'elementSrv',
         elementSrv.reset();
         $scope.element = elementSrv;
         $scope.compression = axialCompressionSrv;
-        $scope.$parent.sub_title = "Compression axiale";
+        $scope.$parent.sub_title = axialCompressionSrv.title;
 
 
         $scope.$watch('element.material', material_change);

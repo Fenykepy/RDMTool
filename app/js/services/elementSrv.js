@@ -88,6 +88,7 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
         }
         elem.fk = elem.materials_char[elem.material][elem.material_class][key];
 
+        return elem.fk;
     }
 
     var set_fd = function () {
@@ -95,6 +96,8 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
             return;
         }
         elem.fd = elem.fk * elem.kmod / elem.gammaM;
+
+        return elem.fd;
     }
 
     var set_fdfinal = function (coefs) {
