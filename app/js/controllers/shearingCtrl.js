@@ -71,7 +71,7 @@ rdmControllers.controller('shearingCtrl', ['$scope', 'elementSrv',
             shearingSrv.set_reduction_angle();
         }
 
-        var kh_change = fd_change;
+        var kv_change = fd_change;
         
         elementSrv.reset();
         $scope.element = elementSrv;
@@ -105,6 +105,7 @@ rdmControllers.controller('shearingCtrl', ['$scope', 'elementSrv',
         $scope.$watch('element.global_section', shearingSrv.set_net_section);
         $scope.$watch('shearing.reduction_place', shearingSrv.set_kv);
         $scope.$watch('shearing.base_length', shearingSrv.set_kv);
+        $scope.$watch('shearing.kv', kv_change);
         
 
 
