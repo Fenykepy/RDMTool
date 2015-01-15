@@ -63,6 +63,14 @@ rdmControllers.controller('axialCompressionCtrl', ['$scope', 'elementSrv',
             }
         }
 
+        function effort_change() {
+            elementSrv.set_sigmad();
+        }
+
+        var net_section_change = effort_change;
+
+
+
         var kcbase_change = fd_change;
 
         
@@ -77,8 +85,8 @@ rdmControllers.controller('axialCompressionCtrl', ['$scope', 'elementSrv',
         $scope.$watch('element.height', height_change);
         $scope.$watch('element.global_section', elementSrv.set_net_section);
         $scope.$watch('element.reduction', elementSrv.set_net_section);
-        $scope.$watch('element.effort', elementSrv.set_sigmad);
-        $scope.$watch('element.net_section', elementSrv.set_sigmad);
+        $scope.$watch('element.effort', effort_change);
+        $scope.$watch('element.net_section', net_section_change);
         $scope.$watch('element.service_class', elementSrv.set_kmod);
         $scope.$watch('element.duration', elementSrv.set_kmod);
         $scope.$watch('element.combinaison', elementSrv.set_gammaM);

@@ -4,8 +4,8 @@
 
 var rdmControllers = angular.module('rdmControllers');
 
-rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
-        'axialTractionSrv', function($scope, elementSrv, axialTractionSrv) {
+rdmControllers.controller('shearingCtrl', ['$scope', 'elementSrv',
+        'shearingSrv', function($scope, elementSrv, shearingSrv) {
 
         elementSrv.get_materials_values(function (data) {
                 $scope.materials = data;
@@ -38,57 +38,74 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
 
         function height_change () {
             elementSrv.set_global_section();
-            axialTractionSrv.set_kh();
+            shearingSrv.set_he();
+        }
+
+        function width_change () {
+            elementSrv.set_global_section();
+            shearingSrv.set_net_section();
         }
 
         function material_change () {
             set_material_classes();
             elementSrv.set_kmod();
             elementSrv.set_gammaM();
-            axialTractionSrv.set_kh();
-            elementSrv.set_fk(axialTractionSrv.fk_key);
+            elementSrv.set_fk(shearingSrv.fk_key);
+            shearingSrv.set_kn();
         }
 
         function material_class_change () {
-            elementSrv.set_fk(axialTractionSrv.fk_key);
+            elementSrv.set_fk(shearingSrv.fk_key);
         }
 
         function fd_change () {
-            elementSrv.set_fdfinal(axialTractionSrv.coefs);
+            elementSrv.set_fdfinal([shearingSrv.kv]);
         }
 
-        function effort_change() {
-            elementSrv.set_sigmad();
+        function effort_change () {
+            elementSrv.set_sigmad(shearingSrv.sigmad_coef);
         }
 
-        var net_section_change = effort_change;
+        function reduction_height_change () {
+            shearingSrv.set_he();
+            shearingSrv.set_reduction_angle();
+        }
 
         var kh_change = fd_change;
         
         elementSrv.reset();
         $scope.element = elementSrv;
-        $scope.traction = axialTractionSrv;
-        $scope.$parent.sub_title = axialTractionSrv.title;
+        $scope.shearing = shearingSrv;
+        $scope.$parent.sub_title = shearingSrv.title;
 
 
 
         $scope.$watch('element.material', material_change);
-        $scope.$watch('element.width', elementSrv.set_global_section);
+        $scope.$watch('element.width', width_change);
         $scope.$watch('element.height', height_change);
-        $scope.$watch('element.global_section', elementSrv.set_net_section);
-        $scope.$watch('element.reduction', elementSrv.set_net_section);
+        $scope.$watch('element.reduction', shearingSrv.set_net_section);
         $scope.$watch('element.effort', effort_change);
-        $scope.$watch('element.net_section', net_section_change);
         $scope.$watch('element.service_class', elementSrv.set_kmod);
         $scope.$watch('element.duration', elementSrv.set_kmod);
         $scope.$watch('element.combinaison', elementSrv.set_gammaM);
         $scope.$watch('element.material_class', material_class_change);
+
+
         $scope.$watch('element.fk', elementSrv.set_fd);
         $scope.$watch('element.kmod', elementSrv.set_fd);
         $scope.$watch('element.gammaM', elementSrv.set_fd);
         $scope.$watch('element.fd', fd_change);
-        $scope.$watch('traction.kh', kh_change);
         $scope.$watch('element.fdfinal', elementSrv.set_verdict);
         $scope.$watch('element.sigmad', elementSrv.set_verdict);
+
+
+        $scope.$watch('shearing.reduction_height', reduction_height_change);
+        $scope.$watch('shearing.reduction_grade_length', shearingSrv.set_reduction_angle);
+        $scope.$watch('shearing.height_full', shearingSrv.set_he);
+        $scope.$watch('element.global_section', shearingSrv.set_net_section);
+        $scope.$watch('shearing.reduction_place', shearingSrv.set_kv);
+        $scope.$watch('shearing.base_length', shearingSrv.set_kv);
+        
+
 
 }]);

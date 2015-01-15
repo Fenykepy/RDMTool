@@ -1,0 +1,7 @@
+- Add a module "cisaillement"
+- Add a service to convert any angle unit to radians and reverse
+- Add a unit select near angle values in oblique compression
+- Add a module to get "reactions d'appuis" for groups of efforts
+- Add a module to get hypotheses
+
+

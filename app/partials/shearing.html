@@ -1,0 +1,133 @@
+<div class="field_wrapper">
+<div class="form-horizontal">
+<label class="col-4" for="height">Hauteur <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="height" ng-model="element.height" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="width">Base <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="width" ng-model="element.width" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="hef">Hauteur d'encoche <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="hef" ng-model="shearing.reduction_height" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="reduction_grade_length">Longueur d'encoche <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="reduction_grade_length" ng-model="shearing.reduction_grade_length" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="reduction">Surface d'usinage <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-8" name="reduction" ng-model="element.reduction" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="reduction_place">Emplacement d'encoche :</label>
+<select class="col-8" name="reduction_place" ng-model="shearing.reduction_place" ng-options="key as value for (key, value) in shearing.reduction_places"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="base_length">Profondeur d'appui <span class="unit">(mm)</span> :</label>
+<input class="col-8" name="base_length" ng-model="shearing.base_length" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="material">Matériau :</label>
+<select class="col-8" name="material" ng-model="element.material" ng-options="item.key as item.value for item in materials"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="material_class">Classe du matérieau :</label>
+<select class="col-8" name="material_class" ng-model="element.material_class" ng-options="key as key for (key, value) in material_classes"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="service_class">Classe de service :</label>
+<select class="col-8" name="service_class" ng-model="element.service_class" ng-options="item as item for item in service_classes"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="combinaison">Combinaison :</label>
+<select class="col-8" name="combinaison" ng-model="element.combinaison" ng-options="item as item for item in combinaisons"></select>
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="effort">Effort pondéré  <span class="unit">(daN)</span> :</label>
+<input class="col-8" name="effort" ng-model="element.effort" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="duration">Durée la plus courte :</label>
+<select class="col-8" name="duration" ng-model="element.duration" ng-options="item as item for item in durations"></select>
+</div>
+</div>
+
+<div class="field_wrapper">
+<input class="title" name="verdict" type="text" value="{{ element.verdict }}" disabled="disabled" ng-class="{valid: element.verdict_bool, invalid: element.verdict_bool == false}" />
+</div>
+
+
+
+
+<div class="field_wrapper">
+<div class="form-horizontal">
+<label class="col-4" for="global_section">Section globale <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="global_section"  type="text" value="{{ element.global_section }}" disabled="disabled" />
+
+<label class="col-4" for="net_section">Section nette <span class="unit">(mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="net_section"  type="text" value="{{ element.net_section }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="sigmad">&sigma;<sub>v,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="sigmad"  type="text" value="{{ element.sigmad | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="ft0dkh">&fnof;<sub>v,d</sub> * K<sub>v</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="ft0dkh" type="text" value="{{ element.fdfinal | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+    <label class="col-4" for="fvk">&fnof;<sub>v,k</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fvk"  type="text" value="{{ element.fk | number: 2  }}" disabled="disabled" />
+
+<label class="col-4" for="fvd">&fnof;<sub>v,d</sub> <span class="unit">(N/mm<sup>2</sup>)</span> :</label>
+<input class="col-2" name="fvd"  type="text" value="{{ element.fd | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="kmod">K<sub>mod</sub> :</label>
+<input class="col-2" name="kmod"  type="text" value="{{ element.kmod | number: 2 }}" disabled="disabled" />
+
+<label class="col-4" for="gammaM">&gamma;<sub>M</sub> :</label>
+<input class="col-2" name="gammaM"  type="text" value="{{ element.gammaM | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="kv">K<sub>v</sub> :</label>
+<input class="col-2" name="kv"  type="text" value="{{ shearing.kv | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="kn">K<sub>n</sub> :</label>
+<input class="col-2" name="kn"  type="text" value="{{ shearing.kn | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="i">i :</label>
+<input class="col-2" name="i"  type="text" value="{{ shearing.i | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="he">H<sub>e</sub> :</label>
+<input class="col-2" name="he"  type="text" value="{{ shearing.he | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+    <label class="col-4" for="reduction_angle">Pente d'encoche <span class="unit">(%)</span> :</label>
+<input class="col-2" name="reduction_angle"  type="text" value="{{ shearing.reduction_angle | number: 2 }}" disabled="disabled" />
+<label class="col-4" for="alpha">&alpha; (H<sub>e</sub> / H) :</label>
+<input class="col-2" name="alpha"  type="text" value="{{ shearing.alpha | number: 2 }}" disabled="disabled" />
+</div>
+
+</div>
+
+
+
+
+

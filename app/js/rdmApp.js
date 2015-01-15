@@ -40,6 +40,10 @@ rdmApp.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'partials/oblique-compression.html',
                 controller: 'obliqueCompressionCtrl'
             }).
+            when('/shearing-force/', {
+                templateUrl: 'partials/shearing.html',
+                controller: 'shearingCtrl'
+            }).
             otherwise({
                 redirectTo: '/'
             });

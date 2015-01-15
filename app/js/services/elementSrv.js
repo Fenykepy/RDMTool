@@ -33,15 +33,16 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
         }
     }
 
+    var set_sigmad = function (coef) {
+        if (! coef) { coef = 1; }
+        elem.sigmad = ((elem.effort * 10) / elem.net_section) * coef;
+    }
+
     var set_net_section = function () {
         if (elem.global_section) {
             elem.net_section = elem.global_section - elem.reduction;
+            set_sigmad();
         }
-
-    }
-
-    var set_sigmad = function () {
-        elem.sigmad = (elem.effort * 10) / elem.net_section;
     }
 
     var set_kc90 = function () {

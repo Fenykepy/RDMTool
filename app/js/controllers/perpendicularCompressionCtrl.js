@@ -58,6 +58,14 @@ rdmControllers.controller('perpendicularCompressionCtrl', ['$scope', 'elementSrv
         function fd_change () {
             elementSrv.set_fdfinal([elementSrv.kc90]);
         }
+
+        function effort_change() {
+            elementSrv.set_sigmad();
+        }
+
+        var net_section_change = effort_change;
+
+
         
         var base_length_change = global_section_change;
         var base_overtaking_change = global_section_change;
@@ -73,8 +81,8 @@ rdmControllers.controller('perpendicularCompressionCtrl', ['$scope', 'elementSrv
         $scope.$watch('element.height', height_change);
         $scope.$watch('element.global_section', global_section_change);
         $scope.$watch('element.reduction', elementSrv.set_net_section);
-        $scope.$watch('element.effort', elementSrv.set_sigmad);
-        $scope.$watch('element.net_section', elementSrv.set_sigmad);
+        $scope.$watch('element.effort', effort_change);
+        $scope.$watch('element.net_section', net_section_change);
         $scope.$watch('element.service_class', elementSrv.set_kmod);
         $scope.$watch('element.duration', elementSrv.set_kmod);
         $scope.$watch('element.combinaison', elementSrv.set_gammaM);
