@@ -24,6 +24,10 @@ rdmApp.config(['$routeProvider', '$locationProvider',
                 templateUrl: 'partials/home.html',
                 controller: 'homeCtrl'
             }).
+            when('/base-reactions/', {
+                templateUrl: 'partials/base-reactions.html',
+                controller: 'baseReactionsCtrl'
+            }).
             when('/axial-traction/', {
                 templateUrl: 'partials/axial-traction.html',
                 controller: 'axialTractionCtrl'
