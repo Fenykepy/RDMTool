@@ -65,10 +65,14 @@ rdmControllers.controller('axialTractionCtrl', ['$scope', 'elementSrv',
 
         var kh_change = fd_change;
         
-        elementSrv.reset();
+        //axialTractionSrv.reset();
         $scope.element = elementSrv;
         $scope.traction = axialTractionSrv;
         $scope.$parent.sub_title = axialTractionSrv.title;
+        $scope.reset = function () {
+            //axialTractionSrv.reset;
+            console.log('reset');
+        }
 
 
 

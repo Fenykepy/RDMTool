@@ -67,4 +67,5 @@ rdmControllers.controller('obliqueCompressionCtrl', ['$scope', 'elementSrv',
         $scope.$watch('ocomp.base_length', obliqueCompressionSrv.set_base_surface);
         $scope.$watch('ocomp.base_width', obliqueCompressionSrv.set_base_surface);
         $scope.$watch('ocomp.effort_angle', obliqueCompressionSrv.set_fdfinal); 
+        $scope.$watch('ocomp.angle_unit', obliqueCompressionSrv.set_fdfinal); 
 }]);

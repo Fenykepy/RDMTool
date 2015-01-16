@@ -129,11 +129,22 @@ rdmServices.factory('elementSrv',['$http', function ($http) {
 
 
     var reset = function () {
+        elem.height = null;
+        elem.width = null;
+        elem.length = null;
+        elem.sigmad = null;
         elem.fk = null;
         elem.fd = null;
         elem.fdfinal = null;
         elem.verdict_bool = null;
         elem.verdict = "";
+        elem.kmod = null;
+        elem.gammaM = null;
+        elem.material = null;
+        elem.material_class = null;
+        elem.reduction = null;
+        elem.service_class = null;
+        elem.combinaison = null;
     }
 
 

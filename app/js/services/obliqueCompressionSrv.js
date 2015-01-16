@@ -4,8 +4,8 @@
 
 var rdmServices = angular.module('rdmServices');
 
-rdmServices.factory('obliqueCompressionSrv', ['elementSrv',
-        function (elementSrv) {
+rdmServices.factory('obliqueCompressionSrv', ['elementSrv', 'anglesSrv',
+        function (elementSrv, anglesSrv) {
 
         var set_verdict = function () {
             elementSrv.fdfinal = elem.fdfinal;
@@ -31,12 +31,15 @@ rdmServices.factory('obliqueCompressionSrv', ['elementSrv',
 
         var set_fdfinal = function () {
             if ( ! elem.f0d || ! elem.f90d || ! elementSrv.kc90 ||
-                    ! elem.effort_angle) {
+                    ! elem.effort_angle || ! elem.angle_unit) {
                 return;
             }
-
-            // convert angle from degres to rad
-            var alpha = elem.effort_angle * Math.PI / 180;
+            if (elem.angle_unit == "Degrés") {
+                // convert angle from degres to rad
+                var alpha = anglesSrv.deg2rad(elem.effort_angle);
+            } else {
+                var alpha = elem.effort_angle;
+            }
 
             elem.fdfinal = elem.f0d / 
                 ((elem.f0d / (elementSrv.kc90 * elem.f90d) * Math.pow(Math.sin(alpha), 2))
@@ -65,6 +68,7 @@ rdmServices.factory('obliqueCompressionSrv', ['elementSrv',
 
         var elem = {
             title: "Compression oblique",
+            angle_units: anglesSrv.units,
             set_base_surface: set_base_surface,
             set_sigmad: set_sigmad,
             set_fks: set_fks,

@@ -35,8 +35,9 @@
 </div>
 
 <div class="form-horizontal">
-<label class="col-4" for="effort_angle">Angle effort / fil <span class="unit">(°)</span> :</label>
-<input class="col-8" name="effort_angle" ng-model="ocomp.effort_angle" />
+<label class="col-4" for="effort_angle">Angle effort / fil :</label>
+<input class="col-6" name="effort_angle" ng-model="ocomp.effort_angle" />
+<select class="col-2" name="angle_unit" ng-model="ocomp.angle_unit" ng-options="item as item for item in ocomp.angle_units"></select>
 </div>
 
 <div class="form-horizontal">
