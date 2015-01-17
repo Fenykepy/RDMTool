@@ -10,8 +10,6 @@ rdmControllers.controller('baseReactionsCtrl', ['$scope', 'baseReactionsSrv',
         $scope.reac = baseReactionsSrv;
         $scope.$parent.sub_title = baseReactionsSrv.title;
 
-
-
         $scope.$watch('reac.ab', baseReactionsSrv.set_reactions);
         $scope.$watch('reac.a_type', baseReactionsSrv.set_reactions);
         $scope.$watch('reac.b_type', baseReactionsSrv.set_reactions);

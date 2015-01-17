@@ -48,6 +48,10 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         }
     }
 
+    var set_rb = function () {
+
+    }
+
 
     var set_reactions = function () {
         elem.failure = null; 
