@@ -6,7 +6,7 @@ var rdmServices = angular.module('rdmServices');
 
 rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
     // supported base types :
-    var base_types = ["Appui simple", "Rotule"];
+    var base_types = ["Appui glissant", "Rotule"];
 
  
     // forces directions
@@ -48,8 +48,20 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         }
     }
 
+    var set_moment_sign = function (effort, dir) {
+        if (dir == v_directions[0] && elem.afh < 0) { return - effort; }
+        if (dir == v_directions[1] && elem.afh < 0) { return effort; }
+        if (dir == v_directions[0] && elem.afh >= 0) { return effort; }
+        if (dir == v_directions[1] && elem.afh >= 0) { return - effort; }
+        if (dir == h_directions[0] && elem.afv < 0) { return effort; }
+        if (dir == h_directions[1] && elem.afv < 0) { return - effort; }
+        if (dir == h_directions[0] && elem.afv >= 0) { return - effort; }
+        if (dir == h_directions[1] && elem.afv >= 0) { return effort; }
+    }
+
     var set_rb = function () {
 
+        
     }
 
 
