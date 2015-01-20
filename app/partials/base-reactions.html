@@ -1,72 +1,81 @@
 <div class="field_wrapper">
 <div class="form-horizontal">
 <label class="col-4" for="ab">Longueur AB <span class="unit">(mm)</span> :</label>
-<input class="col-8" name="ab" ng-model="reac.ab" />
+<input class="col-8" name="ab" ng-model="reac.ab" type="number" min="0" step="any" required/>
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="a_type">Typologie d'appui de A :</label>
-<select class="col-8" name="a_type" ng-model="reac.a_type" ng-options="key for key in reac.base_types"></select>
+<select class="col-8" name="a_type" ng-model="reac.a_type" ng-options="key for key in reac.base_types" required>
+    <option value="" selected="selected"></option>
+</select>
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="b_type">Typologie d'appui de B :</label>
-<select class="col-8" name="b_type" ng-model="reac.b_type" ng-options="key for key in reac.base_types"></select>
+<select class="col-8" name="b_type" ng-model="reac.b_type" ng-options="key for key in reac.base_types" required>
+    <option value="" selected="selected"></option>
+</select>
 </div>
 </div>
 
 <div class="field_wrapper">
 <input class="title invalid" name="fail" ng-if="reac.failure"type="text" value="{{ reac.failure }}" disabled="disabled" />
-<input class="title warning" name="fail" ng-repeat="warning in reac.warnings"type="text" value="{{ warning }}" disabled="disabled" />
+{{ warnings }}
+<input class="title warning" name="warning" ng-repeat="warning in reac.warnings"type="text" value="{{ warning }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
 <div class="form-horizontal">
 <label class="col-4" for="effort">Effort <span class="unit">(daN)</span> :</label>
-<input class="col-2" name="effort" ng-model="reac.effort" />
+<input class="col-2" name="effort" ng-model="reac.effort" type="number" min="0" step="any" required />
 <label class="col-4" for="angle">Angle rapport à [AB] <span class="unit">(°)</span> :</label>
-<input class="col-2" name="angle" ng-model="reac.angle" />
+<input class="col-2" name="angle" ng-model="reac.angle" type="number" min="0" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="afh">Distance AF horizontale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afh" ng-model="reac.afh" />
+<input class="col-2" name="afh" ng-model="reac.afh" type="number" step="any" required />
 
 <label class="col-4" for="afv">Distance AF verticale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afv" ng-model="reac.afv" />
+<input class="col-2" name="afv" ng-model="reac.afv" type="number" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="hdir">Direction horizontale :</label>
-<select class="col-2" name="hdiv" ng-model="reac.hdir" ng-options="key for key in reac.h_directions"></select>
+<select class="col-2" name="hdiv" ng-model="reac.hdir" ng-options="key for key in reac.h_directions" required>
+    <option value="" selected="selected"></option>
+</select>
 
 <label class="col-4" for="vdir">Direction verticale :</label>
-<select class="col-2" name="vdir" ng-model="reac.vdir" ng-options="key for key in reac.v_directions"></select>
+<select class="col-2" name="vdir" ng-model="reac.vdir" ng-options="key for key in reac.v_directions" required>
+    <option value="" selected="selected"></option>
+</select>
 </div>
 </div>
 
 
 <div class="field_wrapper">
 <div class="form-horizontal">
-<label class="col-2" for="fh">F<sub>h</sub> {{ reac.hdir }} :</label>
+<label class="col-2" for="fh">F<sub>h</sub> <span class="big" ng-if="reac.fh > 0">{{ reac.hdir }}</span> :</label>
 <input class="col-2" name="fh"  type="text" value="{{ reac.fh | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rah">R<sub>a,h</sub> {{ reac.rahdir }} :</label>
+<label class="col-2" for="rah">R<sub>a,h</sub> <span class="big" ng-if="reac.rah > 0">{{ reac.rahdir }}</span> :</label>
 <input class="col-2" name="rah"  type="text" value="{{ reac.rah | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbh">R<sub>b,h</sub> {{ reac.rbhdir }} :</label>
+<label class="col-2" for="rbh">R<sub>b,h</sub> <span class="big" ng-if="reac.rbh > 0">{{ reac.rbhdir }}</span> :</label>
 <input class="col-2" name="rbh"  type="text" value="{{ reac.rbh | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-    <label class="col-2" for="fv">F<sub>v</sub> {{ reac.vdir }} :</label>
+    <label class="col-2" for="fv">F<sub>v</sub> <span class="big" ng-if="reac.fv > 0">{{ reac.vdir }}</span> :</label>
 <input class="col-2" name="fv"  type="text" value="{{ reac.fv | number: 2 }}" disabled="disabled" />
 
 
-<label class="col-2" for="rav">R<sub>a,v</sub> {{ reac.ravdir }} :</label>
+<label class="col-2" for="rav">R<sub>a,v</sub> <span class="big" ng-if="reac.rav > 0">{{ reac.ravdir }}</span> :</label>
 <input class="col-2" name="rav"  type="text" value="{{ reac.rav | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbv">R<sub>b,v</sub> {{ reac.rbvdir }} :</label>
+<label class="col-2" for="rbv">R<sub>b,v</sub> <span class="big" ng-if="reac.rbv > 0">{{ reac.rbvdir }}</span> :</label>
 <input class="col-2" name="rbv"  type="text" value="{{ reac.rbv | number: 2 }}" disabled="disabled" />
 </div>
 </div>

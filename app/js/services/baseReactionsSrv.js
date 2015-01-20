@@ -10,19 +10,28 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
 
  
     // forces directions
+    // right arrow, left arrow
+    // up arrow, down arrow
     var h_directions = ["\u2192", "\u2190"];
     var v_directions = ["\u2191", "\u2193"];
     
-    // reverse force direction
-    var reverseDir = function (dir, directions) {
-        if (dir == directions[0]) {
+    
+    var set_dir = function (rel_effort, directions ) {
+        /* return right or up arrow if effort is positive
+         * and left or down arrow if effort is negative
+         */
+        if (rel_effort < 0) {
             return directions[1];
         } else {
             return directions[0];
         }
-    }
+    };
 
     var decompose_angle = function () {
+        /*
+         * decompose a force arriving with given angle
+         * into one horizontal and one vertical force.
+         */
         if (elem.angle == 90) {
             elem.fh = 0;
             elem.fv = elem.effort;
@@ -36,38 +45,94 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         }
     };
 
+    var set_sign = function () {
+        /*
+         * take a non signed effort value and give it a sign
+         * function of its direction
+         */
+        if (elem.fh > 0 && elem.hdir == h_directions[1]) {
+            elem.fhrel = - elem.fh;
+        } else {
+            elem.fhrel = elem.fh;
+        }
+        if (elem.fv > 0 && elem.vdir == v_directions[1]) {
+            elem.fvrel = - elem.fv;
+        } else {
+            elem.fvrel = elem.fv;
+        }
+    };
+
+    var unset_sign = function (effort) {
+        /*
+         * take a signed effort value and return it's non signed version
+         */
+        if (effort < 0) {
+            return - effort;
+        }
+        return effort;
+    };
+
     var set_h_reaction = function () {
+        /*
+         * set rah and rbh base reactions in function
+         * of base types.
+         */
         if (elem.a_type == base_types[0]) {
             elem.rah = 0;
             elem.rbh = elem.fh;
-            elem.rbhdir = reverseDir(elem.hdir, h_directions);
+            elem.rbhrel = - elem.fhrel;
+            elem.rbhdir = set_dir(elem.rbhrel, h_directions);
         } else {
             elem.rbh = 0;
             elem.rah = elem.fh;
-            elem.rahdir = reverseDir(elem.hdir, h_directions);
+            elem.rahrel = - elem.fhrel;
+            elem.rahdir = set_dir(elem.rahrel, h_directions);
         }
-    }
+    };
 
-    var set_moment_sign = function (effort, dir) {
-        if (dir == v_directions[0] && elem.afh < 0) { return - effort; }
-        if (dir == v_directions[1] && elem.afh < 0) { return effort; }
-        if (dir == v_directions[0] && elem.afh >= 0) { return effort; }
-        if (dir == v_directions[1] && elem.afh >= 0) { return - effort; }
-        if (dir == h_directions[0] && elem.afv < 0) { return effort; }
-        if (dir == h_directions[1] && elem.afv < 0) { return - effort; }
-        if (dir == h_directions[0] && elem.afv >= 0) { return - effort; }
-        if (dir == h_directions[1] && elem.afv >= 0) { return effort; }
-    }
-
-    var set_rb = function () {
-
+    var convert_moment_sign = function (effort, vertical) {
+        /*
+         * vertical: boolean, true if effort is vertical.
+         *          false otherwise
+         */
+        // force is vertical and before A
+        if (vertical && elem.afh < 0) { return - effort; }
+        // force is horizontal and upper AB
+        if (! vertical && elem.afv > 0) { return - effort; }
         
-    }
+        // all other cases, sign doesn't move
+        return effort;
+    };
+
+    var set_rbv = function () {
+        var x;
+        var fh = convert_moment_sign(elem.fhrel, false);
+        var fv = convert_moment_sign(elem.fvrel, true);
+
+        x = - (fh * elem.afv + fv * elem.afh ) / elem.ab;
+
+        elem.rbvrel = convert_moment_sign(x, true);
+        elem.rbvdir = set_dir(elem.rbvrel, v_directions);
+        elem.rbv = unset_sign(elem.rbvrel);
+    };
+
+
+    var set_rav = function () {
+        elem.ravrel = - (elem.rbvrel + elem.fvrel);
+        elem.ravdir = set_dir(elem.ravrel, v_directions);
+        elem.rav = unset_sign(elem.ravrel);
+    };
 
 
     var set_reactions = function () {
         elem.failure = null; 
         elem.warnings = [];
+
+        if (! elem.ab || ! elem.a_type || ! elem.b_type ||
+            ! elem.effort || ! elem.angle || isNaN(elem.afh) ||
+            isNaN(elem.afv) || ! elem.hdir || ! elem.vdir) {
+            return;
+        }
 
         // if there is a horizontal force and both base are simple, raise error
         if (elem.angle && elem.angle != 90 &&
@@ -76,16 +141,17 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
             elem.fv = elem.fh = null;
             return;
         }
-
-        if (! elem.ab || ! elem.a_type || ! elem.b_type ||
-            ! elem.effort || ! elem.angle || ! elem.afh ||
-            ! elem.afv || ! elem.hdir || ! elem.vdir) {
-            return;
+        // warning if two rotules are specified
+        if (elem.a_type == elem.b_type && elem.a_type == base_types[1]) {
+            elem.warnings.push("Une seule rotule est nécessaire");
+            console.log('warnings: ' + elem.warnings);
         }
         
         decompose_angle();
+        set_sign();
         set_h_reaction();
-
+        set_rbv();
+        set_rav()
     };
 
     var elem = {
@@ -93,8 +159,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         base_types: base_types,
         h_directions: h_directions,
         v_directions: v_directions,
-        set_reactions: set_reactions,
-        warnings: []
+        set_reactions: set_reactions
     };
 
 

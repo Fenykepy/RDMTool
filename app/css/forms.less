@@ -1,10 +1,4 @@
-// invalid form
-:invalid:hover, :invalid:focus {
-    box-shadow: @invalid-shadow;
-}
-form:invalid, form:invalid:hover, form:invalid:focus, :invalid {
-    box-shadow: none;
-}
+
 input, textarea, select, option, :invalid, :valid {
     outline: none;
     display: block;
@@ -101,19 +95,19 @@ input.valid {
     border-color: @valid-border;
 }
 
-input.invalid {
+.invalid {
     background-color: @invalid-bg;
     color: @invalid;
     border-color: @invalid-border;
 }
 
-input.warning {
+.warning {
     background-color: @warning-bg;
     color: @warning;
     border-color: @warning-border;
 }
 
-input.title{
+.title{
     text-align: center;
     font-weight: bold;
 }
@@ -131,4 +125,13 @@ input.title{
         vertical-align: middle;
         //background: red;
     }
+}
+
+// invalid form
+:invalid:hover, :invalid:focus {
+    box-shadow: @invalid-shadow;
+}
+form:invalid, form:invalid:hover, form:invalid:focus, :invalid {
+    box-shadow: none;
+    .invalid;
 }
