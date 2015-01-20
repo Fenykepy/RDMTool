@@ -142,9 +142,14 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
             return;
         }
         // warning if two rotules are specified
-        if (elem.a_type == elem.b_type && elem.a_type == base_types[1]) {
+        if (elem.a_type == elem.b_type && elem.a_type == base_types[1] &&
+                elem.angle != 90) {
             elem.warnings.push("Une seule rotule est nécessaire");
-            console.log('warnings: ' + elem.warnings);
+        }
+        // warning if there's one rotule and angle is 90
+        if ((elem.a_type == base_types[1] || elem.b_type == base_types[1]) &&
+                elem.angle == 90) {
+            elem.warnings.push("Pas de rotule nécessaire");
         }
         
         decompose_angle();
