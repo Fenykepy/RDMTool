@@ -79,11 +79,13 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
          */
         if (elem.a_type == base_types[0]) {
             elem.rah = 0;
+            elem.rahrel = 0;
             elem.rbh = elem.fh;
             elem.rbhrel = - elem.fhrel;
             elem.rbhdir = set_dir(elem.rbhrel, h_directions);
         } else {
             elem.rbh = 0;
+            elem.rbhrel = 0;
             elem.rah = elem.fh;
             elem.rahrel = - elem.fhrel;
             elem.rahdir = set_dir(elem.rahrel, h_directions);
@@ -185,6 +187,9 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         elem.ravtotdir = set_dir(ravtot, v_directions);
         elem.rbhtotdir = set_dir(rbhtot, h_directions);
         elem.rbvtotdir = set_dir(rbvtot, v_directions);
+
+        console.log(elem.rahtot);
+        console.log(rahtot);
     };
 
 
@@ -225,10 +230,8 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
     }
 
     var add_force = function () {
-        console.log('add_force');
         var result = set_reactions();
         if (! result) { 
-            console.log('add_force result is false');
             return false;
         }
         var force = {
