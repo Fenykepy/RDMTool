@@ -8,6 +8,28 @@ input, textarea, select, option, :invalid, :valid {
 div.field_wrapper {
     margin-bottom: 1.5em;
 }
+.bordered_wrapper {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 4px;
+}
+.bordered_wrapper_middle {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: none;
+    border-bottom: none;
+}
+.bordered_wrapper_up {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+}
+.bordered_wrapper_down {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 0 0 4px 4px;
+}
 
 form {
     margin-top: 1em;
@@ -39,6 +61,9 @@ input, option, select, textarea, ul.errorlist li {
     &:hover, &:focus {
         box-shadow: none;
     }
+}
+.disabled {
+    background: @disabled-inputs-bg;
 }
 textarea {
     resize: vertical;

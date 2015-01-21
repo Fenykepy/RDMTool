@@ -17,6 +17,24 @@
     <option value="" selected="selected"></option>
 </select>
 </div>
+
+
+<div class="form-horizontal">
+<label class="col-4" for="rahtot">RA<sub>h</sub> <span class="big" ng-if="reac.rahtot > 0">{{ reac.rahtotdir }}</span> :</label>
+<input class="col-3" name="rahtot"  type="text" value="{{ reac.rahtot | number: 2 }}" disabled="disabled" />
+
+<label class="col-2" for="rbhtot">RB<sub>h</sub> <span class="big" ng-if="reac.rbhtot > 0">{{ reac.rbhtotdir }}</span> :</label>
+<input class="col-3" name="rbhtot"  type="text" value="{{ reac.rbhtot | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="ravtot">RA<sub>v</sub> <span class="big" ng-if="reac.ravtot > 0">{{ reac.ravtotdir }}</span> :</label>
+<input class="col-3" name="ravtot"  type="text" value="{{ reac.ravtot | number: 2 }}" disabled="disabled" />
+
+<label class="col-2" for="rbvtot">RB<sub>v</sub> <span class="big" ng-if="reac.rbvtot > 0">{{ reac.rbvtotdir }}</span> :</label>
+<input class="col-3" name="rbvtot"  type="text" value="{{ reac.rbvtot | number: 2 }}" disabled="disabled" />
+</div>
+
 </div>
 
 <div class="field_wrapper">
@@ -25,6 +43,7 @@
 </div>
 
 <div class="field_wrapper">
+<div class="bordered_wrapper_up">
 <div class="form-horizontal">
 <label class="col-4" for="effort">Effort <span class="unit">(daN)</span> :</label>
 <input class="col-2" name="effort" ng-model="reac.effort" type="number" min="0" step="any" required />
@@ -54,15 +73,15 @@
 </div>
 
 
-<div class="field_wrapper">
+<div class="bordered_wrapper_middle">
 <div class="form-horizontal">
 <label class="col-2" for="fh">F<sub>h</sub> <span class="big" ng-if="reac.fh > 0">{{ reac.hdir }}</span> :</label>
 <input class="col-2" name="fh"  type="text" value="{{ reac.fh | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rah">R<sub>a,h</sub> <span class="big" ng-if="reac.rah > 0">{{ reac.rahdir }}</span> :</label>
+<label class="col-2" for="rah">RA<sub>h</sub> <span class="big" ng-if="reac.rah > 0">{{ reac.rahdir }}</span> :</label>
 <input class="col-2" name="rah"  type="text" value="{{ reac.rah | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbh">R<sub>b,h</sub> <span class="big" ng-if="reac.rbh > 0">{{ reac.rbhdir }}</span> :</label>
+<label class="col-2" for="rbh">RB<sub>h</sub> <span class="big" ng-if="reac.rbh > 0">{{ reac.rbhdir }}</span> :</label>
 <input class="col-2" name="rbh"  type="text" value="{{ reac.rbh | number: 2 }}" disabled="disabled" />
 </div>
 
@@ -70,13 +89,44 @@
     <label class="col-2" for="fv">F<sub>v</sub> <span class="big" ng-if="reac.fv > 0">{{ reac.vdir }}</span> :</label>
 <input class="col-2" name="fv"  type="text" value="{{ reac.fv | number: 2 }}" disabled="disabled" />
 
-
-<label class="col-2" for="rav">R<sub>a,v</sub> <span class="big" ng-if="reac.rav > 0">{{ reac.ravdir }}</span> :</label>
+<label class="col-2" for="rav">RA<sub>v</sub> <span class="big" ng-if="reac.rav > 0">{{ reac.ravdir }}</span> :</label>
 <input class="col-2" name="rav"  type="text" value="{{ reac.rav | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbv">R<sub>b,v</sub> <span class="big" ng-if="reac.rbv > 0">{{ reac.rbvdir }}</span> :</label>
+<label class="col-2" for="rbv">RB<sub>v</sub> <span class="big" ng-if="reac.rbv > 0">{{ reac.rbvdir }}</span> :</label>
 <input class="col-2" name="rbv"  type="text" value="{{ reac.rbv | number: 2 }}" disabled="disabled" />
 </div>
+</div>
+<div class="bordered_wrapper_down row">
+    <button class="col-2 pull-right" ng-click="reac.add_force()">Ajouter</button>
+</div>
+</div>
+
+<div class="field_wrapper bordered_wrapper disabled" ng-repeat="item in reac.forces">
+    <div class="form-horizontal">
+        <label class="col-1">F :</label><p class="col-3"> {{ item.effort | number: 2 }} daN</p>
+        <label class="col-1">Angle :</label><p class="col-3"> {{ item.angle | number: 2 }} °</p>
+        <button class="col-2 pull-right" ng-click="reac.remove_force($index)">Supprimer</button>
+    </div>
+    <div class="form-horizontal">
+        <label class="col-1">AF <sub>h</sub> :</label>
+        <p class="col-2"> {{ item.afh | number: 2 }} mm</p>
+        <label class="col-1">AF<sub>v</sub> :</label>
+        <p class="col-2"> {{ item.afv | number: 2 }} mm</p>
+        <label class="col-1">F<sub>h</sub> <span class="big">{{ item.fhdir }}</span> :</label>
+        <p class="col-2"> {{ item.fh | number: 2 }} daN</p>
+        <label class="col-1">F<sub>v</sub> <span class="big">{{ item.fvdir }}</span> :</label>
+        <p class="col-2"> {{ item.fv | number: 2 }} daN</p>
+    </div>
+    <div class="form-horizontal">
+        <label class="col-1">RA<sub>h</sub> <span class="big">{{ item.rahdir }}</span> :</label>
+        <p class="col-2"> {{ item.rah | number: 2 }} daN</p>
+        <label class="col-1">RA<sub>v</sub> <span class="big">{{ item.ravdir }}</span> :</label>
+        <p class="col-2"> {{ item.rav | number: 2 }} daN</p>
+        <label class="col-1">RB<sub>h</sub> <span class="big">{{ item.rbhdir }}</span> :</label>
+        <p class="col-2"> {{ item.rbh | number: 2 }} daN</p>
+        <label class="col-1">RB<sub>v</sub> <span class="big">{{ item.rbvdir }}</span> :</label>
+        <p class="col-2"> {{ item.rbv | number: 2 }} daN</p>
+    </div>
 </div>
 
 

@@ -131,7 +131,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         if (! elem.ab || ! elem.a_type || ! elem.b_type ||
             ! elem.effort || ! elem.angle || isNaN(elem.afh) ||
             isNaN(elem.afv) || ! elem.hdir || ! elem.vdir) {
-            return;
+            return false;
         }
 
         // if there is a horizontal force and both base are simple, raise error
@@ -139,7 +139,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
                 elem.a_type == base_types[0] && elem.b_type == base_types[0]) {
             elem.failure = "Une rotule est nécessaire";
             elem.fv = elem.fh = null;
-            return;
+            return false;
         }
         // warning if two rotules are specified
         if (elem.a_type == elem.b_type && elem.a_type == base_types[1] &&
@@ -156,15 +156,119 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         set_sign();
         set_h_reaction();
         set_rbv();
-        set_rav()
+        set_rav();
+        return true;
     };
+
+
+    var set_total_reactions = function () {
+        var rahtot = 0;
+        var ravtot = 0;
+        var rbhtot = 0;
+        var rbvtot = 0;
+
+        for (var i=0; i < elem.forces.length; i++) {
+            rahtot = rahtot + elem.forces[i].rahrel;
+            ravtot = ravtot + elem.forces[i].ravrel;
+            rbhtot = rbhtot + elem.forces[i].rbhrel;
+            rbvtot = rbvtot + elem.forces[i].rbvrel;
+        }
+        
+        // set unsigned bases reactions
+        elem.rahtot = unset_sign(rahtot);
+        elem.ravtot = unset_sign(ravtot);
+        elem.rbhtot = unset_sign(rbhtot);
+        elem.rbvtot = unset_sign(rbvtot);
+
+        // set base_reactions directions
+        elem.rahtotdir = set_dir(rahtot, h_directions);
+        elem.ravtotdir = set_dir(ravtot, v_directions);
+        elem.rbhtotdir = set_dir(rbhtot, h_directions);
+        elem.rbvtotdir = set_dir(rbvtot, v_directions);
+    };
+
+
+    var reset_force_form = function () {
+        console.log('reset_force_form');
+        elem.effort = null;
+        elem.angle = null;
+        elem.afh = null;
+        elem.afv = null;
+        elem.vdir = null;
+        elem.hdir = null;
+        elem.fvrel = null;
+        elem.fhrel = null;
+        elem.fh = null;
+        elem.fv = null;
+        elem.rahrel = null;
+        elem.ravrel = null;
+        elem.rah = null;
+        elem.rav = null;
+        elem.rahdir = null;
+        elem.ravdir = null;
+        elem.rbhrel = null;
+        elem.rbvrel = null;
+        elem.rbh = null;
+        elem.rbv = null;
+        elem.rbhdir = null;
+        elem.rbvdir = null;
+    };
+
+    var remove_force = function (force_index) {
+        /*
+         * remove a given force object from elem.forces array
+         */
+        // remove item from array
+        elem.forces.splice(force_index, 1);
+        // compute again total base reactions
+        set_total_reactions();
+    }
+
+    var add_force = function () {
+        console.log('add_force');
+        var result = set_reactions();
+        if (! result) { 
+            console.log('add_force result is false');
+            return false;
+        }
+        var force = {
+            effort: elem.effort,
+            angle: elem.angle,
+            afh: elem.afh,
+            afv: elem.afv,
+            fvdir: elem.vdir,
+            fhdir: elem.hdir,
+            fvrel: elem.fvrel,
+            fhrel: elem.fhrel,
+            fh: elem.fh,
+            fv: elem.fv,
+            rah: elem.rah,
+            rav: elem.rav,
+            rahrel: elem.rahrel,
+            ravrel: elem.ravrel,
+            rahdir: elem.rahdir,
+            ravdir: elem.ravdir,
+            rbh: elem.rbh,
+            rbv: elem.rbv,
+            rbhrel: elem.rbhrel,
+            rbvrel: elem.rbvrel,
+            rbhdir: elem.rbhdir,
+            rbvdir: elem.rbvdir
+        };
+        elem.forces.push(force);
+        reset_force_form();
+        set_total_reactions();
+    }
 
     var elem = {
         title: "Réactions d'appui",
+        forces: [],
         base_types: base_types,
         h_directions: h_directions,
         v_directions: v_directions,
-        set_reactions: set_reactions
+        set_reactions: set_reactions,
+        add_force: add_force,
+        remove_force: remove_force
     };
 
 
