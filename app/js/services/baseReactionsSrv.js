@@ -12,266 +12,221 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
     // forces directions
     // right arrow, left arrow
     // up arrow, down arrow
-    var h_directions = ["\u2192", "\u2190"];
-    var v_directions = ["\u2191", "\u2193"];
-    
-    
-    var set_dir = function (rel_effort, directions ) {
-        /* return right or up arrow if effort is positive
-         * and left or down arrow if effort is negative
+    var h_directions = [
+        { key: true, value: "\u2192" },
+        { key: false, value: "\u2190" }
+    ];
+    var v_directions = [
+        { key: true, value: "\u2191" },
+        { key: false, value: "\u2193"}
+    ];
+
+    function Force() {
+        this.value = 0; // value of force (unsigned)
+        this.angle = 0; // in degres
+        this.h = 0; // horizontal value of force (unsigned)
+        this.v = 0; // vertical value of force (unsigned)
+        this.hdir = true; // true if positive (right)
+        this.vdir = true; // true if positive (up)
+        this.decompose_angle = function () {
+            /*
+             * decompose value of force into one horizontal
+             * and one vertical force.
+             */
+            if (this.angle == 0) {
+                this.h = this.value;
+                this.v = 0;
+            } else if (this.angle == 90) {
+                this.h = 0;
+                this.v = this.value;
+            } else {
+                // convert angle from degres to radians
+                var alpha = anglesSrv.deg2rad(this.angle);
+                // decompose force
+                this.h = Math.sin(alpha) * this.effort;
+                this.v = Math.cos(alpha) * this.effort;
+            }
+        };
+
+        function get_signed (force, dir) {
+            /* return signed value of force, 
+             * in function of it's direction
+             */
+            if (dir) { return force }
+            else { return - force }
+        };
+
+        function set_force (value, force, dir) {
+            if (value < 0) {
+                force = - value;
+                dir = false;
+            } else {
+                force = value;
+                dir = true;
+            }
+        };
+
+        // returned signed value of h
+        this.get_signed_h = get_signed(this.h, this.hdir);
+        // returned signed value of v
+        this.get_signed_v = get_signed(this.v, this.vdir);
+        // set value of h and hdir
+        this.set_h = function (x) { set_force(x, this.h, this.hdir); };
+        // set value of v and vdir
+        this.set_v = function (x) { set_force(x, this.v, this.vdir); };
+    }
+
+    function ForceGroup () {
+        /* 
+         * a group of forces composed by one applyed force
+         * and it's two base reactions.
          */
-        if (rel_effort < 0) {
-            return directions[1];
-        } else {
-            return directions[0];
-        }
-    };
-
-    var decompose_angle = function () {
-        /*
-         * decompose a force arriving with given angle
-         * into one horizontal and one vertical force.
-         */
-        if (elem.angle == 90) {
-            elem.fh = 0;
-            elem.fv = elem.effort;
-        } else if (elem.angle == 0) {
-            elem.fh = elem.effort;
-            elem.fv = 0;
-        } else {
-            var alpha = anglesSrv.deg2rad(elem.angle);
-            elem.fh = Math.sin(alpha) * elem.effort;
-            elem.fv = Math.cos(alpha) * elem.effort;
-        }
-    };
-
-    var set_sign = function () {
-        /*
-         * take a non signed effort value and give it a sign
-         * function of its direction
-         */
-        if (elem.fh > 0 && elem.hdir == h_directions[1]) {
-            elem.fhrel = - elem.fh;
-        } else {
-            elem.fhrel = elem.fh;
-        }
-        if (elem.fv > 0 && elem.vdir == v_directions[1]) {
-            elem.fvrel = - elem.fv;
-        } else {
-            elem.fvrel = elem.fv;
-        }
-    };
-
-    var unset_sign = function (effort) {
-        /*
-         * take a signed effort value and return it's non signed version
-         */
-        if (effort < 0) {
-            return - effort;
-        }
-        return effort;
-    };
-
-    var set_h_reaction = function () {
-        /*
-         * set rah and rbh base reactions in function
-         * of base types.
-         */
-        if (elem.a_type == base_types[0]) {
-            elem.rah = 0;
-            elem.rahrel = 0;
-            elem.rbh = elem.fh;
-            elem.rbhrel = - elem.fhrel;
-            elem.rbhdir = set_dir(elem.rbhrel, h_directions);
-        } else {
-            elem.rbh = 0;
-            elem.rbhrel = 0;
-            elem.rah = elem.fh;
-            elem.rahrel = - elem.fhrel;
-            elem.rahdir = set_dir(elem.rahrel, h_directions);
-        }
-    };
-
-    var convert_moment_sign = function (effort, vertical) {
-        /*
-         * vertical: boolean, true if effort is vertical.
-         *          false otherwise
-         */
-        // force is vertical and before A
-        if (vertical && elem.afh < 0) { return - effort; }
-        // force is horizontal and upper AB
-        if (! vertical && elem.afv > 0) { return - effort; }
-        
-        // all other cases, sign doesn't move
-        return effort;
-    };
-
-    var set_rbv = function () {
-        var x;
-        var fh = convert_moment_sign(elem.fhrel, false);
-        var fv = convert_moment_sign(elem.fvrel, true);
-
-        x = - (fh * elem.afv + fv * elem.afh ) / elem.ab;
-
-        elem.rbvrel = convert_moment_sign(x, true);
-        elem.rbvdir = set_dir(elem.rbvrel, v_directions);
-        elem.rbv = unset_sign(elem.rbvrel);
-    };
-
-
-    var set_rav = function () {
-        elem.ravrel = - (elem.rbvrel + elem.fvrel);
-        elem.ravdir = set_dir(elem.ravrel, v_directions);
-        elem.rav = unset_sign(elem.ravrel);
-    };
-
-
-    var set_reactions = function () {
-        elem.failure = null; 
-        elem.warnings = [];
-
-        if (! elem.ab || ! elem.a_type || ! elem.b_type ||
-            ! elem.effort || ! elem.angle || isNaN(elem.afh) ||
-            isNaN(elem.afv) || ! elem.hdir || ! elem.vdir) {
-            return false;
-        }
-
-        // if there is a horizontal force and both base are simple, raise error
-        if (elem.angle && elem.angle != 90 &&
+        this.f = new Force();
+        this.ra = new Force();
+        this.rb = new Force();
+        this.afh = 0; // A-F horizontal distance
+        this.afv = 0; // A-F vertical distance
+        this.set_base_reactions = function () {
+            // if some data miss, return
+            if (! elem.ab || ! elem.a_type || ! elem.b_type ||
+                ! this.f.value || ! this.f.angle || isNaN(this.afh) ||
+                isNaN(this.afv)) {
+                return false;
+            }
+            // if there is a horizontal force and both bases are simple,
+            // raise an error
+            if (this.f.angle && this.f.angle != 90 &&
                 elem.a_type == base_types[0] && elem.b_type == base_types[0]) {
-            elem.failure = "Une rotule est nécessaire";
-            elem.fv = elem.fh = null;
-            return false;
-        }
-        // warning if two rotules are specified
-        if (elem.a_type == elem.b_type && elem.a_type == base_types[1] &&
-                elem.angle != 90) {
-            elem.warnings.push("Une seule rotule est nécessaire");
-        }
-        // warning if there's one rotule and angle is 90
-        if ((elem.a_type == base_types[1] || elem.b_type == base_types[1]) &&
-                elem.angle == 90) {
-            elem.warnings.push("Pas de rotule nécessaire");
+                elem.failure = "Une rotule est nécessaire";
+                return false;
+            }
+            // warning if two rotules are specified
+            if (elem.a_type == elem.b_type && elem.b_type == base_types[1]) {
+                elem.warnings.push("Une seule rotule est nécessaire");
+            }
+
+            this.f.decompose_angle();
+            this._set_rah_rbh();
+            this._set_rbv_reaction();
+            this._set_rav_reaction();
+
+            return true;
+        };
+
+        this._set_rah_rbh = function () {
+            /* set rah and rbh in function of base types. */
+            if (elem.a_type == base_types[0]) {
+                this.ra.h = 0;
+                this.rb.set_h(this.f.get_signed_h());
+            } else {
+                this.ra.set_h(this.f.get_signed_h());
+                this.rb.h = 0;
+            }
+        };
+
+        this._set_rbv = function () {
+            var x;
+            var fh = this.convert_moment_h_sign(this.f.h, false);
+            var fv = this.convert_moment_v_sign(this.f.v, true);
+
+            x = - (fh * this.afv + fv * this.afh ) / elem.ab);
+            this.rb.set_v(this.convert_moment_v_sign(x, true));
+
+        };
+
+        this._set_rav = function () {
+            this.ra.set_v(
+                    - (this.rb.get_signed_v() + this.f.get_signed_v())
+            );
+        };
+
+        this._convert_moment_sign = function (value, vertical) {
+            /*
+             * value : signed force intensity.
+             * vertical: boolean, true if effort is vertical.
+             *                  false otherwise
+             */
+            // force is vertical and before A
+            if (vertical && this.afh < 0) { return - value; }
+            // force is horizontal and upper AB
+            if (! vertical && this.afv > 0) { return - effort; }
+
+            // all other cases, sign doesn't change
+            return effort;
+        };
+    };
+
+
+
+    var set_total_reactions = function (refresh) {
+        /*
+         * refresh: boolean, true if forces in force_groups
+         * must be set again.
+         */
+        var rah = 0;
+        var rav = 0;
+        var rbh = 0;
+        var rbv = 0;
+
+        for (var i=0; i < elem.force_groups.length; i++) {
+            if (refresh) {
+                elem.force_groups[i].set_base_reactions();
+            };
+            rah = rah + elem.force_groups[i].ra.get_signed_h();
+            rav = rav + elem.force_groups[i].ra.get_signed_v();
+            rbh = rbh + elem.force_groups[i].rb.get_signed_h();
+            rbv = rbv + elem.force_groups[i].rb.get_signed_v();
         }
         
-        decompose_angle();
-        set_sign();
-        set_h_reaction();
-        set_rbv();
-        set_rav();
-        return true;
+        // set bases reactions
+        elem.ra.set_v(rav);
+        elem.ra.set_h(rah);
+        elem.rb.set_v(rbv);
+        elem.rb.set_h(rbh);
     };
 
 
-    var set_total_reactions = function () {
-        var rahtot = 0;
-        var ravtot = 0;
-        var rbhtot = 0;
-        var rbvtot = 0;
-
-        for (var i=0; i < elem.forces.length; i++) {
-            rahtot = rahtot + elem.forces[i].rahrel;
-            ravtot = ravtot + elem.forces[i].ravrel;
-            rbhtot = rbhtot + elem.forces[i].rbhrel;
-            rbvtot = rbvtot + elem.forces[i].rbvrel;
-        }
-        
-        // set unsigned bases reactions
-        elem.rahtot = unset_sign(rahtot);
-        elem.ravtot = unset_sign(ravtot);
-        elem.rbhtot = unset_sign(rbhtot);
-        elem.rbvtot = unset_sign(rbvtot);
-
-        // set base_reactions directions
-        elem.rahtotdir = set_dir(rahtot, h_directions);
-        elem.ravtotdir = set_dir(ravtot, v_directions);
-        elem.rbhtotdir = set_dir(rbhtot, h_directions);
-        elem.rbvtotdir = set_dir(rbvtot, v_directions);
-
-        console.log(elem.rahtot);
-        console.log(rahtot);
-    };
-
-
-    var reset_force_form = function () {
-        console.log('reset_force_form');
-        elem.effort = null;
-        elem.angle = null;
-        elem.afh = null;
-        elem.afv = null;
-        elem.vdir = null;
-        elem.hdir = null;
-        elem.fvrel = null;
-        elem.fhrel = null;
-        elem.fh = null;
-        elem.fv = null;
-        elem.rahrel = null;
-        elem.ravrel = null;
-        elem.rah = null;
-        elem.rav = null;
-        elem.rahdir = null;
-        elem.ravdir = null;
-        elem.rbhrel = null;
-        elem.rbvrel = null;
-        elem.rbh = null;
-        elem.rbv = null;
-        elem.rbhdir = null;
-        elem.rbvdir = null;
-    };
-
-    var remove_force = function (force_index) {
+    var removeForceGroup = function (force_group_index) {
         /*
          * remove a given force object from elem.forces array
          */
         // remove item from array
-        elem.forces.splice(force_index, 1);
+        elem.force_groups.splice(force_group_index, 1);
         // compute again total base reactions
         set_total_reactions();
-    }
+    };
 
-    var add_force = function () {
-        var result = set_reactions();
+
+    var addForceGroup = function () {
+        var result = elem.force_group.set_base_reactions();
         if (! result) { 
             return false;
         }
-        var force = {
-            effort: elem.effort,
-            angle: elem.angle,
-            afh: elem.afh,
-            afv: elem.afv,
-            fvdir: elem.vdir,
-            fhdir: elem.hdir,
-            fvrel: elem.fvrel,
-            fhrel: elem.fhrel,
-            fh: elem.fh,
-            fv: elem.fv,
-            rah: elem.rah,
-            rav: elem.rav,
-            rahrel: elem.rahrel,
-            ravrel: elem.ravrel,
-            rahdir: elem.rahdir,
-            ravdir: elem.ravdir,
-            rbh: elem.rbh,
-            rbv: elem.rbv,
-            rbhrel: elem.rbhrel,
-            rbvrel: elem.rbvrel,
-            rbhdir: elem.rbhdir,
-            rbvdir: elem.rbvdir
-        };
-        elem.forces.push(force);
-        reset_force_form();
+        elem.forces.push(elem.force_group);
+        elem.force_group = new ForceGroup();
         set_total_reactions();
-    }
+    };
+
+    var refreshAll = function () {
+        // compute total base reactions recomputing all partials base reactions
+        set_total_reactions(true);
+        // compute form base_reactions
+        elem.force_group.set_base_reactions();
+    };
+
 
     var elem = {
         title: "Réactions d'appui",
-        forces: [],
+        ra: new Force(),
+        rb: new Force(),
+        force_group: new ForceGroup(),
+        force_groups: [],
         base_types: base_types,
         h_directions: h_directions,
         v_directions: v_directions,
-        set_reactions: set_reactions,
-        add_force: add_force,
-        remove_force: remove_force
+        addForceGroup: addForceGroup,
+        removeForceGroup: removeForceGroup,
+        refreshAll: refreshAll
     };
 
 

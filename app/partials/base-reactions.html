@@ -46,27 +46,27 @@
 <div class="bordered_wrapper_up">
 <div class="form-horizontal">
 <label class="col-4" for="effort">Effort <span class="unit">(daN)</span> :</label>
-<input class="col-2" name="effort" ng-model="reac.effort" type="number" min="0" step="any" required />
+<input class="col-2" name="effort" ng-model="force.effort" type="number" min="0" step="any" required />
 <label class="col-4" for="angle">Angle rapport à [AB] <span class="unit">(°)</span> :</label>
-<input class="col-2" name="angle" ng-model="reac.angle" type="number" min="0" max="90" step="any" required />
+<input class="col-2" name="angle" ng-model="force.angle" type="number" min="0" max="90" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="afh">Distance AF horizontale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afh" ng-model="reac.afh" type="number" step="any" required />
+<input class="col-2" name="afh" ng-model="force.afh" type="number" step="any" required />
 
 <label class="col-4" for="afv">Distance AF verticale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afv" ng-model="reac.afv" type="number" step="any" required />
+<input class="col-2" name="afv" ng-model="force.afv" type="number" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="hdir">Direction horizontale :</label>
-<select class="col-2" name="hdiv" ng-model="reac.hdir" ng-options="key for key in reac.h_directions" required>
+<select class="col-2" name="hdiv" ng-model="force.fhdir" ng-options="item.key as item.value for item in reac.h_directions" required>
     <option value="" selected="selected"></option>
 </select>
 
 <label class="col-4" for="vdir">Direction verticale :</label>
-<select class="col-2" name="vdir" ng-model="reac.vdir" ng-options="key for key in reac.v_directions" required>
+<select class="col-2" name="vdir" ng-model="force.fvdir" ng-options="item.key as item.value for item in reac.v_directions" required>
     <option value="" selected="selected"></option>
 </select>
 </div>
@@ -75,25 +75,25 @@
 
 <div class="bordered_wrapper_middle">
 <div class="form-horizontal">
-<label class="col-2" for="fh">F<sub>h</sub> <span class="big" ng-if="reac.fh > 0">{{ reac.hdir }}</span> :</label>
-<input class="col-2" name="fh"  type="text" value="{{ reac.fh | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="fh">F<sub>h</sub> <span class="big" ng-if="force.fh > 0">{{ force.fhdir }}</span> :</label>
+<input class="col-2" name="fh"  type="text" value="{{ force.fh | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rah">RA<sub>h</sub> <span class="big" ng-if="reac.rah > 0">{{ reac.rahdir }}</span> :</label>
-<input class="col-2" name="rah"  type="text" value="{{ reac.rah | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rah">RA<sub>h</sub> <span class="big" ng-if="force.rah > 0">{{ force.rahdir }}</span> :</label>
+<input class="col-2" name="rah"  type="text" value="{{ force.rah | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbh">RB<sub>h</sub> <span class="big" ng-if="reac.rbh > 0">{{ reac.rbhdir }}</span> :</label>
-<input class="col-2" name="rbh"  type="text" value="{{ reac.rbh | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rbh">RB<sub>h</sub> <span class="big" ng-if="force.rbh > 0">{{ force.rbhdir }}</span> :</label>
+<input class="col-2" name="rbh"  type="text" value="{{ force.rbh | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-    <label class="col-2" for="fv">F<sub>v</sub> <span class="big" ng-if="reac.fv > 0">{{ reac.vdir }}</span> :</label>
-<input class="col-2" name="fv"  type="text" value="{{ reac.fv | number: 2 }}" disabled="disabled" />
+    <label class="col-2" for="fv">F<sub>v</sub> <span class="big" ng-if="force.fv > 0">{{ force.fvdir }}</span> :</label>
+<input class="col-2" name="fv"  type="text" value="{{ force.fv | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rav">RA<sub>v</sub> <span class="big" ng-if="reac.rav > 0">{{ reac.ravdir }}</span> :</label>
-<input class="col-2" name="rav"  type="text" value="{{ reac.rav | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rav">RA<sub>v</sub> <span class="big" ng-if="force.rav > 0">{{ force.ravdir }}</span> :</label>
+<input class="col-2" name="rav"  type="text" value="{{ force.rav | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbv">RB<sub>v</sub> <span class="big" ng-if="reac.rbv > 0">{{ reac.rbvdir }}</span> :</label>
-<input class="col-2" name="rbv"  type="text" value="{{ reac.rbv | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rbv">RB<sub>v</sub> <span class="big" ng-if="force.rbv > 0">{{ force.rbvdir }}</span> :</label>
+<input class="col-2" name="rbv"  type="text" value="{{ force.rbv | number: 2 }}" disabled="disabled" />
 </div>
 </div>
 <div class="bordered_wrapper_down row">
