@@ -17,66 +17,158 @@
     <option value="" selected="selected"></option>
 </select>
 </div>
+
+
+<div class="form-horizontal">
+<label class="col-4" for="rahtot">RA<sub>h</sub>
+<span class="big" ng-if="reac.ra.h > 0 && reac.ra.hdir">{{ reac.h_directions[0].value }}</span>
+<span class="big" ng-if="! reac.ra.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+<input class="col-3" name="rahtot"  type="text" value="{{ reac.ra.h | number: 2 }}" disabled="disabled" />
+
+<label class="col-2" for="rbhtot">RB<sub>h</sub> 
+<span class="big" ng-if="reac.rb.h > 0 && reac.rb.hdir">{{ reac.h_directions[0].value }}</span>
+<span class="big" ng-if="! reac.rb.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+<input class="col-3" name="rbhtot"  type="text" value="{{ reac.rb.h | number: 2 }}" disabled="disabled" />
+</div>
+
+<div class="form-horizontal">
+<label class="col-4" for="ravtot">RA<sub>v</sub> 
+<span class="big" ng-if="reac.ra.v > 0 && reac.ra.vdir">{{ reac.v_directions[0].value }}</span>
+<span class="big" ng-if="! reac.ra.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+<input class="col-3" name="ravtot"  type="text" value="{{ reac.ra.v | number: 2 }}" disabled="disabled" />
+
+<label class="col-2" for="rbvtot">RB<sub>v</sub> 
+<span class="big" ng-if="reac.rb.v > 0 && reac.rb.vdir">{{ reac.v_directions[0].value }}</span>
+<span class="big" ng-if="! reac.rb.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+<input class="col-3" name="rbvtot"  type="text" value="{{ reac.rb.v | number: 2 }}" disabled="disabled" />
+</div>
+
 </div>
 
 <div class="field_wrapper">
 <input class="title invalid" name="fail" ng-if="reac.failure"type="text" value="{{ reac.failure }}" disabled="disabled" />
-{{ warnings }}
 <input class="title warning" name="warning" ng-repeat="warning in reac.warnings"type="text" value="{{ warning }}" disabled="disabled" />
 </div>
 
 <div class="field_wrapper">
+<div class="bordered_wrapper_up">
 <div class="form-horizontal">
 <label class="col-4" for="effort">Effort <span class="unit">(daN)</span> :</label>
-<input class="col-2" name="effort" ng-model="reac.effort" type="number" min="0" step="any" required />
+<input class="col-2" name="effort" ng-model="reac.force_group.f.value" type="number" min="0" step="any" required />
 <label class="col-4" for="angle">Angle rapport à [AB] <span class="unit">(°)</span> :</label>
-<input class="col-2" name="angle" ng-model="reac.angle" type="number" min="0" step="any" required />
+<input class="col-2" name="angle" ng-model="reac.force_group.f.angle" type="number" min="0" max="90" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="afh">Distance AF horizontale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afh" ng-model="reac.afh" type="number" step="any" required />
+<input class="col-2" name="afh" ng-model="reac.force_group.afh" type="number" step="any" required />
 
 <label class="col-4" for="afv">Distance AF verticale<span class="unit">(mm)</span> :</label>
-<input class="col-2" name="afv" ng-model="reac.afv" type="number" step="any" required />
+<input class="col-2" name="afv" ng-model="reac.force_group.afv" type="number" step="any" required />
 </div>
 
 <div class="form-horizontal">
 <label class="col-4" for="hdir">Direction horizontale :</label>
-<select class="col-2" name="hdiv" ng-model="reac.hdir" ng-options="key for key in reac.h_directions" required>
+<select class="col-2" name="hdiv" ng-model="reac.force_group.f.hdir" ng-options="item.key as item.value for item in reac.h_directions" required>
     <option value="" selected="selected"></option>
 </select>
 
 <label class="col-4" for="vdir">Direction verticale :</label>
-<select class="col-2" name="vdir" ng-model="reac.vdir" ng-options="key for key in reac.v_directions" required>
+<select class="col-2" name="vdir" ng-model="reac.force_group.f.vdir" ng-options="item.key as item.value for item in reac.v_directions" required>
     <option value="" selected="selected"></option>
 </select>
 </div>
 </div>
 
 
-<div class="field_wrapper">
+<div class="bordered_wrapper_middle">
 <div class="form-horizontal">
-<label class="col-2" for="fh">F<sub>h</sub> <span class="big" ng-if="reac.fh > 0">{{ reac.hdir }}</span> :</label>
-<input class="col-2" name="fh"  type="text" value="{{ reac.fh | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="fh">F<sub>h</sub>
+<span class="big" ng-if="reac.force_group.f.h > 0 && reac.force_group.f.hdir">{{ reac.h_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.f.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+<input class="col-2" name="fh"  type="text" value="{{ reac.force_group.f.h | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rah">R<sub>a,h</sub> <span class="big" ng-if="reac.rah > 0">{{ reac.rahdir }}</span> :</label>
-<input class="col-2" name="rah"  type="text" value="{{ reac.rah | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rah">RA<sub>h</sub>
+<span class="big" ng-if="reac.force_group.ra.h > 0 && reac.force_group.ra.hdir">{{ reac.h_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.ra.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+<input class="col-2" name="rah"  type="text" value="{{ reac.force_group.ra.h | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rbh">R<sub>b,h</sub> <span class="big" ng-if="reac.rbh > 0">{{ reac.rbhdir }}</span> :</label>
-<input class="col-2" name="rbh"  type="text" value="{{ reac.rbh | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rbh">RB<sub>h</sub>
+<span class="big" ng-if="reac.force_group.rb.h > 0 && reac.force_group.rb.hdir">{{ reac.h_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.rb.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+<input class="col-2" name="rbh"  type="text" value="{{ reac.force_group.rb.h | number: 2 }}" disabled="disabled" />
 </div>
 
 <div class="form-horizontal">
-    <label class="col-2" for="fv">F<sub>v</sub> <span class="big" ng-if="reac.fv > 0">{{ reac.vdir }}</span> :</label>
-<input class="col-2" name="fv"  type="text" value="{{ reac.fv | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="fv">F<sub>v</sub>
+<span class="big" ng-if="reac.force_group.f.v > 0 && reac.force_group.f.vdir">{{ reac.v_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.f.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+<input class="col-2" name="fv"  type="text" value="{{ reac.force_group.f.v | number: 2 }}" disabled="disabled" />
 
+<label class="col-2" for="rav">RA<sub>v</sub>
+<span class="big" ng-if="reac.force_group.ra.v > 0 && reac.force_group.ra.vdir">{{ reac.v_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.ra.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+<input class="col-2" name="rav"  type="text" value="{{ reac.force_group.ra.v | number: 2 }}" disabled="disabled" />
 
-<label class="col-2" for="rav">R<sub>a,v</sub> <span class="big" ng-if="reac.rav > 0">{{ reac.ravdir }}</span> :</label>
-<input class="col-2" name="rav"  type="text" value="{{ reac.rav | number: 2 }}" disabled="disabled" />
+<label class="col-2" for="rbv">RB<sub>v</sub>
+<span class="big" ng-if="reac.force_group.rb.v > 0 && reac.force_group.rb.vdir">{{ reac.v_directions[0].value }}</span>
+<span class="big" ng-if="! reac.force_group.rb.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+<input class="col-2" name="rbv"  type="text" value="{{ reac.force_group.rb.v | number: 2 }}" disabled="disabled" />
+</div>
+</div>
+<div class="bordered_wrapper_down row">
+    <button class="col-2 pull-right" ng-click="reac.addForceGroup()">Ajouter</button>
+</div>
+</div>
 
-<label class="col-2" for="rbv">R<sub>b,v</sub> <span class="big" ng-if="reac.rbv > 0">{{ reac.rbvdir }}</span> :</label>
-<input class="col-2" name="rbv"  type="text" value="{{ reac.rbv | number: 2 }}" disabled="disabled" />
+<div class="field_wrapper" ng-repeat="item in reac.force_groups">
+<div class="bordered_wrapper_up disabled">
+    <p class="title">Force {{ $index + 1 }}<button class="minus-round-small pull-right" ng-click="reac.removeForceGroup($index)" title="Supprimer la force"></button></p>
+</div>
+
+<div class="bordered_wrapper_down disabled">
+    <div class="form-horizontal">
+        <label class="col-3">F :</label>
+        <p class="col-3"> {{ item.f.value | number: 2 }} daN</p>
+        <label class="col-3">Angle :</label>
+        <p class="col-3"> {{ item.f.angle | number: 2 }} °</p>
+    </div>
+    <div class="form-horizontal">
+        <label class="col-3">AF <sub>h</sub> :</label>
+        <p class="col-3"> {{ item.afh | number: 2 }} mm</p>
+        <label class="col-3">AF<sub>v</sub> :</label>
+        <p class="col-3"> {{ item.afv | number: 2 }} mm</p>
+    </div>
+
+    <div class="form-horizontal">
+        <label class="col-2">F<sub>h</sub>
+        <span class="big" ng-if="item.f.h > 0 && item.f.hdir">{{ reac.h_directions[0].value }}</span>
+        <span class="big" ng-if="! item.f.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.f.h | number: 2 }} daN</p>
+        <label class="col-2">RA<sub>h</sub>
+        <span class="big" ng-if="item.ra.h > 0 && item.ra.hdir">{{ reac.h_directions[0].value }}</span>
+        <span class="big" ng-if="! item.ra.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.ra.h | number: 2 }} daN</p>
+        <label class="col-2">RB<sub>h</sub>
+        <span class="big" ng-if="item.rb.h > 0 && item.rb.hdir">{{ reac.h_directions[0].value }}</span>
+        <span class="big" ng-if="! item.rb.hdir">{{ reac.h_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.rb.h | number: 2 }} daN</p>
+    </div>
+    
+    <div class="form-horizontal">
+        <label class="col-2">F<sub>v</sub>
+        <span class="big" ng-if="item.f.v > 0 && item.f.vdir">{{ reac.v_directions[0].value }}</span>
+        <span class="big" ng-if="! item.f.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.f.v | number: 2 }} daN</p>
+        <label class="col-2">RA<sub>v</sub>
+        <span class="big" ng-if="item.ra.v > 0 && item.ra.vdir">{{ reac.v_directions[0].value }}</span>
+        <span class="big" ng-if="! item.ra.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.ra.v | number: 2 }} daN</p>
+        <label class="col-2">RB<sub>v</sub>
+        <span class="big" ng-if="item.rb.v > 0 && item.rb.vdir">{{ reac.v_directions[0].value }}</span>
+        <span class="big" ng-if="! item.rb.vdir">{{ reac.v_directions[1].value }}</span> :</label>
+        <p class="col-2"> {{ item.rb.v | number: 2 }} daN</p>
+    </div>
 </div>
 </div>
 

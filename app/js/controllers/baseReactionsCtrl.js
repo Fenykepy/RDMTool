@@ -10,13 +10,15 @@ rdmControllers.controller('baseReactionsCtrl', ['$scope', 'baseReactionsSrv',
         $scope.reac = baseReactionsSrv;
         $scope.$parent.sub_title = baseReactionsSrv.title;
 
-        $scope.$watch('reac.ab', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.a_type', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.b_type', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.effort', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.angle', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.afh', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.afv', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.hdir', baseReactionsSrv.set_reactions);
-        $scope.$watch('reac.vdir', baseReactionsSrv.set_reactions);
+        $scope.$watch('reac.ab', baseReactionsSrv.refreshAll);
+        $scope.$watch('reac.a_type', baseReactionsSrv.refreshAll);
+        $scope.$watch('reac.b_type', baseReactionsSrv.refreshAll);
+        
+        $scope.$watch('reac.force_group.f.value', baseReactionsSrv.refreshForm);
+        $scope.$watch('reac.force_group.f.angle', baseReactionsSrv.refreshForm);
+        $scope.$watch('reac.force_group.f.hdir', baseReactionsSrv.refreshForm);
+        $scope.$watch('reac.force_group.f.vdir', baseReactionsSrv.refreshForm);
+        $scope.$watch('reac.force_group.afh', baseReactionsSrv.refreshForm);
+        $scope.$watch('reac.force_group.afv', baseReactionsSrv.refreshForm);
+        
 }]);

@@ -8,6 +8,28 @@ input, textarea, select, option, :invalid, :valid {
 div.field_wrapper {
     margin-bottom: 1.5em;
 }
+.bordered_wrapper {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 4px;
+}
+.bordered_wrapper_middle {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: none;
+    border-bottom: none;
+}
+.bordered_wrapper_up {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+}
+.bordered_wrapper_down {
+    padding: 10px;
+    border: @inputs-border;
+    border-radius: 0 0 4px 4px;
+}
 
 form {
     margin-top: 1em;
@@ -39,6 +61,9 @@ input, option, select, textarea, ul.errorlist li {
     &:hover, &:focus {
         box-shadow: none;
     }
+}
+.disabled {
+    background: @disabled-inputs-bg;
 }
 textarea {
     resize: vertical;
@@ -112,11 +137,32 @@ input.valid {
     font-weight: bold;
 }
 
+
+button.minus-round-small {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    min-width: 24px;
+    margin: 0;
+    &:before {
+        content:"";
+        position: absolute;
+        top: 9px;
+        right: 5px;
+        display: block;
+        height: 4px;
+        width: 12px;
+        background-color: @submit-border-color - 24;
+    }
+}
+
 .form-horizontal {
     //background: green;
     .clear;
     margin-bottom: 5px;
-    label {
+    label, p {
         text-align: right;
         margin: 5px 0 0;
         padding: 0 15px 0 0; 
@@ -124,6 +170,10 @@ input.valid {
         line-height: 34px;
         vertical-align: middle;
         //background: red;
+    }
+    p {
+        text-align: left;
+        padding: 0;
     }
 }
 
