@@ -43,8 +43,8 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
                 // convert angle from degres to radians
                 var alpha = anglesSrv.deg2rad(this.angle);
                 // decompose force
-                this.h = Math.sin(alpha) * this.effort;
-                this.v = Math.cos(alpha) * this.effort;
+                this.h = Math.cos(alpha) * this.value;
+                this.v = Math.sin(alpha) * this.value;
             }
         };
 
@@ -52,28 +52,37 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
             /* return signed value of force, 
              * in function of it's direction
              */
+            //console.log('get_signed');
+            //console.log(dir);
+            //console.log(force);
             if (dir) { return force }
             else { return - force }
         };
 
-        function set_force (value, force, dir) {
+        this._set_force = function (value, sens) {
+            console.log('value:' + value);
+            console.log('sens:' + sens);
+            console.log(this);
             if (value < 0) {
-                force = - value;
-                dir = false;
+                this[sens] = - value;
+                this[sens + "dir"] = false;
             } else {
-                force = value;
-                dir = true;
+                this[sens] = value;
+                this[sens + "dir"] = true;
             }
         };
 
         // returned signed value of h
-        this.get_signed_h = get_signed(this.h, this.hdir);
+        this.get_signed_h = function () { return get_signed(this.h, this.hdir); };
         // returned signed value of v
-        this.get_signed_v = get_signed(this.v, this.vdir);
+        this.get_signed_v = function () { return get_signed(this.v, this.vdir); };
         // set value of h and hdir
-        this.set_h = function (x) { set_force(x, this.h, this.hdir); };
+        this.set_h = function (x) { this._set_force(x, "h");
+            console.log('this.h:' + this.h);
+            console.log('this.hdir:' + this.hdir);
+        };
         // set value of v and vdir
-        this.set_v = function (x) { set_force(x, this.v, this.vdir); };
+        this.set_v = function (x) { this._set_force(x, "v"); };
     }
 
     function ForceGroup () {
@@ -87,10 +96,13 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         this.afh = 0; // A-F horizontal distance
         this.afv = 0; // A-F vertical distance
         this.set_base_reactions = function () {
+            console.log('set_base_reactions');
             // if some data miss, return
-            if (! elem.ab || ! elem.a_type || ! elem.b_type ||
-                ! this.f.value || ! this.f.angle || isNaN(this.afh) ||
+            if ( isNaN(elem.ab) || ! elem.a_type || ! elem.b_type ||
+                ! this.f.value || isNaN(this.f.angle) || isNaN(this.afh) ||
                 isNaN(this.afv)) {
+                console.log('return false');
+                console.log(this);
                 return false;
             }
             // if there is a horizontal force and both bases are simple,
@@ -106,35 +118,41 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
             }
 
             this.f.decompose_angle();
-            this._set_rah_rbh();
+            this._set_rah_rbh_reactions();
             this._set_rbv_reaction();
             this._set_rav_reaction();
 
             return true;
         };
 
-        this._set_rah_rbh = function () {
+        this._set_rah_rbh_reactions = function () {
+            console.log('set_rah_rbh_reactions');
             /* set rah and rbh in function of base types. */
             if (elem.a_type == base_types[0]) {
+                console.log(this.f.get_signed_h());
                 this.ra.h = 0;
                 this.rb.set_h(this.f.get_signed_h());
             } else {
                 this.ra.set_h(this.f.get_signed_h());
                 this.rb.h = 0;
             }
+            console.log(this.rb.h);
+            console.log(this.ra.h);
         };
 
-        this._set_rbv = function () {
+        this._set_rbv_reaction = function () {
+            console.log('set_rbv_reactions');
             var x;
-            var fh = this.convert_moment_h_sign(this.f.h, false);
-            var fv = this.convert_moment_v_sign(this.f.v, true);
+            var fh = this._convert_moment_sign(this.f.h, false);
+            var fv = this._convert_moment_sign(this.f.v, true);
 
-            x = - (fh * this.afv + fv * this.afh ) / elem.ab);
-            this.rb.set_v(this.convert_moment_v_sign(x, true));
+            x = - ((fh * this.afv + fv * this.afh ) / elem.ab);
+            this.rb.set_v(this._convert_moment_sign(x, true));
 
         };
 
-        this._set_rav = function () {
+        this._set_rav_reaction = function () {
+            console.log('set_rav_reaction');
             this.ra.set_v(
                     - (this.rb.get_signed_v() + this.f.get_signed_v())
             );
@@ -149,16 +167,17 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
             // force is vertical and before A
             if (vertical && this.afh < 0) { return - value; }
             // force is horizontal and upper AB
-            if (! vertical && this.afv > 0) { return - effort; }
+            if (! vertical && this.afv > 0) { return - value; }
 
             // all other cases, sign doesn't change
-            return effort;
+            return value;
         };
     };
 
 
 
     var set_total_reactions = function (refresh) {
+        console.log('set_total_reactions');
         /*
          * refresh: boolean, true if forces in force_groups
          * must be set again.
@@ -170,6 +189,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
 
         for (var i=0; i < elem.force_groups.length; i++) {
             if (refresh) {
+                console.log('set_total_reactions');
                 elem.force_groups[i].set_base_reactions();
             };
             rah = rah + elem.force_groups[i].ra.get_signed_h();
@@ -187,6 +207,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
 
 
     var removeForceGroup = function (force_group_index) {
+        console.log('removeForceGroup');
         /*
          * remove a given force object from elem.forces array
          */
@@ -198,27 +219,43 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
 
 
     var addForceGroup = function () {
+        console.log('addForceGroup');
         var result = elem.force_group.set_base_reactions();
         if (! result) { 
             return false;
         }
-        elem.forces.push(elem.force_group);
+        elem.force_groups.push(elem.force_group);
         elem.force_group = new ForceGroup();
         set_total_reactions();
     };
 
+
+    var refreshForm = function () {
+        // compute current force_group base reactions
+        console.log('refreshForm');
+        elem.force_group.set_base_reactions();
+        
+    }
+
+
     var refreshAll = function () {
+        console.log('refreshAll');
+        elem.failure = null;
+        elem.warnings = [];
         // compute total base reactions recomputing all partials base reactions
         set_total_reactions(true);
         // compute form base_reactions
-        elem.force_group.set_base_reactions();
+        refreshForm()
     };
 
 
     var elem = {
         title: "Réactions d'appui",
+        ab: 0,
         ra: new Force(),
         rb: new Force(),
+        a_type: base_types[0],
+        b_type: base_types[0],
         force_group: new ForceGroup(),
         force_groups: [],
         base_types: base_types,
@@ -226,6 +263,7 @@ rdmServices.factory('baseReactionsSrv', ['anglesSrv', function (anglesSrv) {
         v_directions: v_directions,
         addForceGroup: addForceGroup,
         removeForceGroup: removeForceGroup,
+        refreshForm: refreshForm,
         refreshAll: refreshAll
     };
 
